@@ -125,7 +125,7 @@ section{padding:clamp(3.5rem,7vw,6rem) 0}
 .hero-cta{display:flex;flex-wrap:wrap;gap:.9rem;justify-content:center}
 .hero-verse{margin-top:2rem;font-size:.88rem;color:rgba(255,255,255,.6);display:flex;align-items:center;justify-content:center;gap:.7rem}
 .hero-verse::before{content:"";width:30px;height:2px;background:var(--green);border-radius:2px}
-.hero-badge{position:absolute;left:clamp(1rem,4vw,2.6rem);bottom:clamp(1rem,4vw,2rem);width:clamp(74px,9vw,116px);height:auto;opacity:.9;pointer-events:none;z-index:1}
+.hero-badge{position:absolute;right:clamp(1rem,4vw,2.6rem);bottom:clamp(1rem,4vw,2rem);width:clamp(74px,9vw,116px);height:auto;opacity:.9;pointer-events:none;z-index:1}
 @media (max-width:680px){.hero-badge{display:none}}
 
 /* ---------- Trust strip ---------- */
