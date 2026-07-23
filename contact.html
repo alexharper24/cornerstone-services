@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Free Estimate | Contact Cornerstone Services, Warsaw IN</title>
+<meta name="description" content="Request a free estimate from Cornerstone Services for painting, drywall repair, or a small remodel in Warsaw, Indiana. Call (574) 377-0573 or send us a message.">
+<link rel="canonical" href="https://cornerstonesvcs.com/contact.html">
+<meta name="geo.region" content="US-IN"><meta name="geo.placename" content="Warsaw, Indiana">
+<meta name="theme-color" content="#0F2D54">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Free Estimate | Cornerstone Services, Warsaw IN">
+<meta property="og:description" content="Request a free estimate for painting, drywall, or small remodels in Warsaw, Indiana.">
+<meta property="og:url" content="https://cornerstonesvcs.com/contact.html">
+<meta property="og:image" content="https://cornerstonesvcs.com/img/logo-icon.png">
+<meta property="og:site_name" content="Cornerstone Services">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" type="image/png" href="img/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Zilla+Slab:wght@400;500;600;700&family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- ===== HEADER ===== -->
+<header class="nav">
+  <div class="wrap">
+    <a href="index.html" class="brand" aria-label="Cornerstone Services home">
+      <img class="mark" src="img/logo-icon.png" alt="Cornerstone Services logo">
+      <span class="name">CORNERSTONE<span>Services</span></span>
+    </a>
+    <nav class="nav-links" id="navLinks">
+      <a href="index.html">Home</a>
+      <a href="services.html">Services</a>
+      <a href="work.html">Our Work</a>
+      <a href="about.html">About</a>
+      <a href="contact.html" class="nav-cta active">Free Estimate</a>
+    </nav>
+    <button class="nav-toggle" id="navToggle" aria-label="Menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<!-- ===== PAGE HERO ===== -->
+<section class="page-hero">
+  <div class="wrap">
+    <span class="kicker">Free Estimate</span>
+    <h1>Let's talk about your project</h1>
+    <p>Tell us a little about what you need and we'll get back to you with availability and a free, no-pressure estimate. Prefer to talk? Call or text (574) 377-0573.</p>
+    <div class="crumbs"><a href="index.html">Home</a> / Free Estimate</div>
+  </div>
+</section>
+
+<!-- ===== HOW IT WORKS ===== -->
+<section style="padding-top:clamp(1.8rem,3.5vw,2.6rem);padding-bottom:.5rem">
+  <div class="wrap">
+    <div class="steps">
+      <div class="step reveal"><div class="n">1</div><h3>Reach out</h3><p>Send the form or call/text with a few details.</p></div>
+      <div class="step reveal"><div class="n">2</div><h3>We take a look</h3><p>We'll set up a time to see the project in person.</p></div>
+      <div class="step reveal"><div class="n">3</div><h3>Get your estimate</h3><p>A clear, written, no-obligation quote.</p></div>
+      <div class="step reveal"><div class="n">4</div><h3>We get to work</h3><p>We schedule the job and get it done right.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FORM + SIDEBAR ===== -->
+<section style="padding-top:clamp(1.2rem,2.5vw,1.8rem)">
+  <div class="wrap contact-grid">
+    <!-- FORM -->
+    <div class="form-card reveal">
+      <h2 style="margin-bottom:1.4rem">Request a free estimate</h2>
+      <!-- Replace YOUR_FORM_ID with the ID from your Formspree dashboard -->
+      <form id="estimateForm" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
+        <input type="hidden" name="_subject" value="New Estimate Request for Cornerstone Services">
+        <!-- spam honeypot: bots fill it, humans don't -->
+        <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px" aria-hidden="true">
+
+        <div class="field-row">
+          <div class="field">
+            <label for="name">Name <span class="req">*</span></label>
+            <input type="text" id="name" name="name" required autocomplete="name">
+          </div>
+          <div class="field">
+            <label for="phone">Phone <span class="req">*</span></label>
+            <input type="tel" id="phone" name="phone" required autocomplete="tel">
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="email">Email</label>
+          <input type="email" id="email" name="email" autocomplete="email">
+        </div>
+
+        <div class="field">
+          <label for="service">What do you need? <span class="req">*</span></label>
+          <select id="service" name="service" required>
+            <option value="" selected disabled>Choose a service…</option>
+            <option>Interior painting</option>
+            <option>Exterior painting</option>
+            <option>Drywall finish / repair</option>
+            <option>Small remodel / fixes</option>
+            <option>Not sure, need advice</option>
+            <option>Other</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label for="location">Project location (town)</label>
+          <input type="text" id="location" name="location" placeholder="e.g. Warsaw, IN" autocomplete="address-level2">
+        </div>
+
+        <div class="field">
+          <label for="message">Tell us about the project <span class="req">*</span></label>
+          <textarea id="message" name="message" required placeholder="Rooms, rough size, colors, timing. Whatever you can share helps us give an accurate estimate."></textarea>
+        </div>
+
+        <div class="submit-row">
+          <button type="submit" class="btn btn-primary">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4z"/></svg>
+            Send My Request
+          </button>
+        </div>
+        <p class="form-note">We'll never share your information. Expect a reply within a business day or two.</p>
+      </form>
+
+      <div class="form-thanks" id="formThanks" hidden>
+        <div class="thanks-badge">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>
+        </div>
+        <h2>Thank you!</h2>
+        <p>Your request is on its way. We'll be in touch soon with availability and a free estimate. Need us sooner? Call or text (574) 377-0573.</p>
+      </div>
+    </div>
+
+    <!-- SIDEBAR -->
+    <aside class="contact-side reveal">
+      <div class="contact-row">
+        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h4l2 5-2.5 1.5a11 11 0 0 0 6 6L15 14l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 2 6a2 2 0 0 1 2-2z"/></svg></div>
+        <div><div class="ct-label">Call or Text</div><div class="ct-val"><a href="tel:+15743770573">(574) 377-0573</a></div></div>
+      </div>
+      <div class="contact-row">
+        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M4 7l8 6 8-6"/></svg></div>
+        <div><div class="ct-label">Email</div><div class="ct-val"><a href="mailto:cornerstone22022@gmail.com">cornerstone22022@gmail.com</a></div></div>
+      </div>
+      <div class="contact-row">
+        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s7-5.5 7-11a7 7 0 0 0-14 0c0 5.5 7 11 7 11z"/><circle cx="12" cy="10" r="2.5"/></svg></div>
+        <div><div class="ct-label">Service Area</div><div class="ct-val"><a href="https://www.google.com/maps/search/?api=1&amp;query=Warsaw%2C+IN">Warsaw, IN</a> &amp; surrounding area</div></div>
+      </div>
+
+      <div class="good-to-know">
+        <h3>Good to know</h3>
+        <ul>
+          <li>Estimates are always free and no-pressure.</li>
+          <li>Call or text is the fastest way to reach Stephen.</li>
+          <li>The more detail you share, the more accurate your estimate.</li>
+          <li>We serve Warsaw and the surrounding communities.</li>
+        </ul>
+      </div>
+    </aside>
+  </div>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer class="footer">
+  <div class="wrap">
+    <div class="cols">
+      <div>
+        <img class="flogo" src="img/logo-mark-dark.png" alt="Cornerstone Services">
+        <p>Interior and exterior painting, small drywall finish and repair, and small remodels. Serving Warsaw, Indiana and the surrounding area.</p>
+        <p class="footer-verse">Ephesians 2:20-22</p>
+      </div>
+      <div>
+        <h4>Explore</h4>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="services.html">Services</a></li>
+          <li><a href="work.html">Our Work</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="contact.html">Free Estimate</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Get in touch</h4>
+        <div class="fcontact">
+          <a href="tel:+15743770573">(574) 377-0573</a>
+          <a href="mailto:cornerstone22022@gmail.com">cornerstone22022@gmail.com</a>
+          <span>Serving the <a href="https://www.google.com/maps/search/?api=1&amp;query=Warsaw%2C+IN">Warsaw, IN</a> area</span>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>&copy; <span id="year">2026</span> Cornerstone Services · Stephen Williams</span>
+      <span>Warsaw, Indiana</span>
+    </div>
+  </div>
+</footer>
+
+<script src="main.js"></script>
+</body>
+</html>

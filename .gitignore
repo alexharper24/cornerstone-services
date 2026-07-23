@@ -1,0 +1,7 @@
+# Source-only / large originals — not part of the published site
+stephen-*.png
+*_n.jpg
+preview.html
+_rev*.png
+_review*.png
+.DS_Store
