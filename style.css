@@ -208,7 +208,10 @@ section{padding:clamp(3.5rem,7vw,6rem) 0}
 .split .media .photo-ph{border-radius:0;border:0;min-height:420px}
 
 /* ---------- Real photos ---------- */
-.media img.portrait{width:100%;aspect-ratio:4/5;max-height:480px;object-fit:cover;object-position:50% 18%;display:block}
+.media img.portrait{width:100%;height:auto;display:block}
+.back-link{display:inline-flex;align-items:center;gap:.4rem;font-family:var(--head);font-weight:600;font-size:.9rem;color:var(--blue);margin-bottom:1.4rem;transition:gap .2s var(--ease)}
+.back-link svg{width:16px;height:16px}
+@media (hover:hover){.back-link:hover{gap:.65rem}}
 .g-item img{width:100%;height:auto;display:block}
 
 /* ---------- Gallery ---------- */
