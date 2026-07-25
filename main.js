@@ -134,6 +134,43 @@
   });
 })();
 
+/* ---------- Gallery lightbox (click to expand) ---------- */
+(function () {
+  const imgs = [].slice.call(document.querySelectorAll('.gallery .g-item img'));
+  if (!imgs.length) return;
+  let box;
+  function build() {
+    box = document.createElement('div');
+    box.className = 'lightbox';
+    box.innerHTML = '<button class="lightbox-close" aria-label="Close">✕</button><img alt=""><div class="cap"></div>';
+    document.body.appendChild(box);
+    box.addEventListener('click', function (e) {
+      if (e.target === box || e.target.classList.contains('lightbox-close')) close();
+    });
+  }
+  function open(src, alt, cap) {
+    if (!box) build();
+    box.querySelector('img').src = src;
+    box.querySelector('img').alt = alt || '';
+    box.querySelector('.cap').textContent = cap || '';
+    box.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+  function close() {
+    if (box) { box.classList.remove('open'); document.body.style.overflow = ''; }
+  }
+  imgs.forEach(function (img) {
+    img.addEventListener('click', function () {
+      const fig = img.closest('.g-item');
+      const cap = fig && fig.querySelector('figcaption');
+      open(img.currentSrc || img.src, img.alt, cap ? cap.textContent : '');
+    });
+  });
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape') close();
+  });
+})();
+
 /* ---------- Footer year ---------- */
 (function () {
   const y = document.getElementById('year');

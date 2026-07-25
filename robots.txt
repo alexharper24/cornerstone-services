@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://cornerstonesvcs.com/sitemap.xml
+Sitemap: https://alexharper24.github.io/cornerstone-services/sitemap.xml

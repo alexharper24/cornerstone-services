@@ -226,6 +226,15 @@ section{padding:clamp(3.5rem,7vw,6rem) 0}
 .g-item figcaption{position:absolute;left:0;right:0;bottom:0;padding:1.4rem 1.1rem .85rem;color:#fff;
   font-family:var(--head);font-weight:600;font-size:.92rem;letter-spacing:.02em;
   background:linear-gradient(to top,rgba(15,45,84,.85),rgba(15,45,84,.35) 55%,transparent)}
+.gallery .g-item img{cursor:zoom-in}
+
+/* ---------- Lightbox ---------- */
+.lightbox{position:fixed;inset:0;z-index:200;background:rgba(15,45,84,.94);display:none;align-items:center;justify-content:center;padding:2rem;cursor:zoom-out}
+.lightbox.open{display:flex}
+.lightbox img{max-width:min(1100px,94vw);max-height:90vh;width:auto;height:auto;border-radius:10px;box-shadow:0 30px 80px -20px rgba(0,0,0,.7);cursor:default}
+.lightbox .cap{position:absolute;left:0;right:0;bottom:1.3rem;text-align:center;color:rgba(255,255,255,.85);font-family:var(--head);font-weight:600;font-size:.95rem}
+.lightbox-close{position:absolute;top:1rem;right:1.3rem;width:44px;height:44px;display:grid;place-items:center;background:rgba(255,255,255,.12);border:0;border-radius:50%;color:#fff;font-size:1.7rem;line-height:1;cursor:pointer;transition:background .2s}
+@media (hover:hover){.lightbox-close:hover{background:rgba(255,255,255,.25)}}
 .g-item .photo-ph{min-height:260px}
 .g-item:nth-child(3n) .photo-ph{min-height:320px}
 .g-item:nth-child(3n+1) .photo-ph{min-height:210px}
