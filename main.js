@@ -134,21 +134,21 @@
   });
 })();
 
-/* ---------- Before/After flip cards (tap to flip on touch) ---------- */
+/* ---------- Before/After flip cards (button flips; image still expands) ---------- */
 (function () {
-  const cards = [].slice.call(document.querySelectorAll('.flip-card'));
-  if (!cards.length) return;
-  // On touch devices there's no hover, so tap toggles the flip.
-  if (window.matchMedia && window.matchMedia('(hover: none)').matches) {
-    cards.forEach(function (c) {
-      c.addEventListener('click', function () { c.classList.toggle('flipped'); });
+  const toggles = [].slice.call(document.querySelectorAll('.flip-toggle'));
+  toggles.forEach(function (btn) {
+    btn.addEventListener('click', function (e) {
+      e.stopPropagation();               // don't trigger the image lightbox
+      const card = btn.closest('.flip-card');
+      if (card) card.classList.toggle('flipped');
     });
-  }
+  });
 })();
 
 /* ---------- Gallery lightbox (click to expand) ---------- */
 (function () {
-  const imgs = [].slice.call(document.querySelectorAll('.gallery .g-item:not(.flip-card) img'));
+  const imgs = [].slice.call(document.querySelectorAll('.gallery .g-item img'));
   if (!imgs.length) return;
   let box;
   function build() {
@@ -173,9 +173,16 @@
   }
   imgs.forEach(function (img) {
     img.addEventListener('click', function () {
-      const fig = img.closest('.g-item');
-      const cap = fig && fig.querySelector('figcaption');
-      open(img.currentSrc || img.src, img.alt, cap ? cap.textContent : '');
+      const face = img.closest('.flip-face');
+      let cap = '';
+      if (face) {
+        const b = face.querySelector('.flip-badge');
+        cap = b ? b.textContent : '';
+      } else {
+        const fc = img.closest('.g-item').querySelector('figcaption');
+        cap = fc ? fc.textContent : '';
+      }
+      open(img.currentSrc || img.src, img.alt, cap);
     });
   });
   document.addEventListener('keydown', function (e) {
