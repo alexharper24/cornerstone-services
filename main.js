@@ -134,9 +134,21 @@
   });
 })();
 
+/* ---------- Before/After flip cards (tap to flip on touch) ---------- */
+(function () {
+  const cards = [].slice.call(document.querySelectorAll('.flip-card'));
+  if (!cards.length) return;
+  // On touch devices there's no hover, so tap toggles the flip.
+  if (window.matchMedia && window.matchMedia('(hover: none)').matches) {
+    cards.forEach(function (c) {
+      c.addEventListener('click', function () { c.classList.toggle('flipped'); });
+    });
+  }
+})();
+
 /* ---------- Gallery lightbox (click to expand) ---------- */
 (function () {
-  const imgs = [].slice.call(document.querySelectorAll('.gallery .g-item img'));
+  const imgs = [].slice.call(document.querySelectorAll('.gallery .g-item:not(.flip-card) img'));
   if (!imgs.length) return;
   let box;
   function build() {
