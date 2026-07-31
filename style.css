@@ -4,6 +4,8 @@
    ========================================================= */
 
 :root{
+  /* iOS Safari inverts pages that do not declare a scheme. */
+  color-scheme: light only !important;
   /* Brand palette (from brand sheet) */
   --ink:#0F2D54;          /* dark slate  */
   --ink-2:#1A3D5E;
