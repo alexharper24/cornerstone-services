@@ -16,9 +16,20 @@ web/
 ├── robots.txt        For Google
 ├── .nojekyll         Tells GitHub Pages to serve files as-is
 └── img/              Logos + favicon (add work photos here)
+    └── brand/source/ Your original logo package, kept for safekeeping
 ```
 
 This folder **is** the website. Upload its **contents** (so `index.html` sits at the top level) to your host.
+
+### About `img/brand/source/`
+
+These are the original, full-size logo files from your brand package (the primary
+logo, the circle icon, the dark and green lockups, the main mark, and the brand
+board). The website itself uses the smaller versions sitting directly in `img/`.
+
+The originals are kept here on purpose so they are never lost, and so a bigger or
+differently-coloured version can be made later without going back to the designer.
+Nothing on the site links to them, so they do not slow any page down.
 
 ---
 
