@@ -146,47 +146,70 @@
   });
 })();
 
-/* ---------- Gallery lightbox (click to expand) ---------- */
+/* ---------- Gallery lightbox (single image or multi-photo album, with nav) ---------- */
 (function () {
-  const imgs = [].slice.call(document.querySelectorAll('.gallery .g-item img'));
-  if (!imgs.length) return;
-  let box;
+  const tiles = [].slice.call(document.querySelectorAll('.gallery .g-item'));
+  if (!tiles.length) return;
+  let box, imgEl, capEl, countEl, items = [], idx = 0;
+
   function build() {
     box = document.createElement('div');
     box.className = 'lightbox';
-    box.innerHTML = '<button class="lightbox-close" aria-label="Close">✕</button><img alt=""><div class="cap"></div>';
+    box.innerHTML =
+      '<button class="lightbox-close" aria-label="Close">✕</button>' +
+      '<button class="lightbox-nav prev" aria-label="Previous photo">‹</button>' +
+      '<button class="lightbox-nav next" aria-label="Next photo">›</button>' +
+      '<img alt=""><div class="cap"></div><div class="lightbox-count"></div>';
     document.body.appendChild(box);
+    imgEl = box.querySelector('img');
+    capEl = box.querySelector('.cap');
+    countEl = box.querySelector('.lightbox-count');
     box.addEventListener('click', function (e) {
       if (e.target === box || e.target.classList.contains('lightbox-close')) close();
     });
+    box.querySelector('.prev').addEventListener('click', function (e) { e.stopPropagation(); step(-1); });
+    box.querySelector('.next').addEventListener('click', function (e) { e.stopPropagation(); step(1); });
   }
-  function open(src, alt, cap) {
+  function render() {
+    const it = items[idx];
+    imgEl.src = it.src; imgEl.alt = it.alt || '';
+    capEl.textContent = it.cap || '';
+    countEl.textContent = items.length > 1 ? (idx + 1) + ' / ' + items.length : '';
+    box.classList.toggle('single', items.length < 2);
+  }
+  function step(d) { idx = (idx + d + items.length) % items.length; render(); }
+  function open(list, start) {
     if (!box) build();
-    box.querySelector('img').src = src;
-    box.querySelector('img').alt = alt || '';
-    box.querySelector('.cap').textContent = cap || '';
-    box.classList.add('open');
-    document.body.style.overflow = 'hidden';
+    items = list; idx = start || 0; render();
+    box.classList.add('open'); document.body.style.overflow = 'hidden';
   }
-  function close() {
-    if (box) { box.classList.remove('open'); document.body.style.overflow = ''; }
-  }
-  imgs.forEach(function (img) {
-    img.addEventListener('click', function () {
-      const face = img.closest('.flip-face');
-      let cap = '';
-      if (face) {
-        const b = face.querySelector('.flip-badge');
-        cap = b ? b.textContent : '';
-      } else {
-        const fc = img.closest('.g-item').querySelector('figcaption');
-        cap = fc ? fc.textContent : '';
-      }
-      open(img.currentSrc || img.src, img.alt, cap);
+  function close() { if (box) { box.classList.remove('open'); document.body.style.overflow = ''; } }
+
+  tiles.forEach(function (tile) {
+    const tileImgs = [].slice.call(tile.querySelectorAll('img'));
+    if (!tileImgs.length) return;
+    const fc = tile.querySelector('figcaption');
+    const cap = fc ? fc.textContent : '';
+    const isAlbum = tile.classList.contains('album');
+    const list = tileImgs.map(function (im) {
+      const face = im.closest('.flip-face');
+      const faceCap = face ? (face.querySelector('.flip-badge') ? face.querySelector('.flip-badge').textContent : '') : cap;
+      return { src: im.currentSrc || im.src, alt: im.alt, cap: faceCap };
+    });
+    tileImgs.forEach(function (im, i) {
+      im.addEventListener('click', function () {
+        if (im.closest('.flip-face')) open([list[i]], 0);   // flip face: just that photo
+        else if (isAlbum) open(list, i);                     // album: browse the whole set
+        else open([list[i]], 0);                             // single tile
+      });
     });
   });
+
   document.addEventListener('keydown', function (e) {
+    if (!box || !box.classList.contains('open')) return;
     if (e.key === 'Escape') close();
+    else if (e.key === 'ArrowRight') step(1);
+    else if (e.key === 'ArrowLeft') step(-1);
   });
 })();
 
