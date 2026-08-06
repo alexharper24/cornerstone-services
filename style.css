@@ -429,3 +429,15 @@ section{padding:clamp(3.5rem,7vw,6rem) 0}
   .cta-ribbon .btn-white:hover{background:#fff}
   .svc-card:hover::after{transform:scaleX(0)}
 }
+
+
+/* --------------------------------------------------------------------------
+   Footer link tap targets (added 2026-08-06 after a rendered audit).
+   Footer links measured 17-36px tall against the 44px minimum that both Apple
+   and Google publish, so a fingertip overlapped the neighbouring link. Padding
+   only: the text size is unchanged, and this is scoped to phones so desktop
+   footer density stays exactly as it was.
+   -------------------------------------------------------------------------- */
+@media (max-width: 640px) {
+  footer .cols a, footer .fcontact a { padding-top: 11px; padding-bottom: 11px; }
+}
