@@ -50,11 +50,14 @@ Until this is done, the form shows a friendly "call or text us" message instead 
 ### 2. Pick your web address (domain)
 The site currently uses a placeholder address, `cornerstonesvcs.com`, in its SEO tags. Once you register a real domain (or decide on the free `github.io` address), tell me and I'll update every page to match.
 
-### 3. Add real photos (biggest impact for a trades site)
-Right now the gallery and the "photo of Stephen" spots use branded placeholders. When you have photos:
+### 3. Keep adding real photos (biggest impact for a trades site)
+Real photos are in place: Stephen's headshot on the About page, and five projects in
+the Our Work gallery, including two before/after cards you can flip (the exterior
+repaint and the bathroom). To add more:
 - Drop them in the `img/` folder.
-- Send them over and I'll optimize them, name them, and swap them into the gallery and About page.
-Before/after painting shots do especially well.
+- Send them over and I'll optimize them, name them, and swap them into the gallery.
+Before/after painting shots do especially well, so shoot the "before" from the same
+spot as the "after" and keep both the same orientation.
 
 ---
 
