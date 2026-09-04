@@ -5,3 +5,9 @@ preview.html
 _rev*.png
 _review*.png
 .DS_Store
+
+# Raw camera drops arrive in img/ with a space in the name ("deck before.jpg"),
+# 5-6 MB each. Only the resized work-*.jpg derivatives belong in the repo.
+img/* *.jpg
+img/* *.jpeg
+img/* *.png
