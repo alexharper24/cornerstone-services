@@ -967,3 +967,87 @@ input:focus-visible,select:focus-visible,textarea:focus-visible{
    also meets the 16px floor the brief asked for. */
 .page-hero .kicker{color:var(--red-light)}
 .field input,.field select,.field textarea{font-size:1rem}
+
+/* --- 20. Light-mode lock: the forced-dark override ----------------------
+   The two <meta> tags and `color-scheme: light only` in :root are only two
+   thirds of the lock. iOS Safari's auto-dark (and Chrome's forced-dark on
+   Android) still rewrite backgrounds on elements the UA thinks are unstyled,
+   which produces dark-on-dark text on exactly the surfaces that inherit
+   rather than declare. This block pins them.
+
+   Rule for anyone adding a background class later: if the new surface is
+   meant to be DARK, add it to the protected list below, or this block's
+   !important will flatten it to paper. */
+@media (prefers-color-scheme: dark){
+  :root{color-scheme:light only !important}
+  html,body{background:var(--paper) !important;color:var(--ink) !important}
+
+  /* Light surfaces, held light */
+  .nav,.nav-links,
+  .svc-card,.svc-card.has-photo .ic,
+  .why,.form-card,.contact-row,.panel,
+  .gallery-filters button,
+  .cta-ribbon,
+  .btn-white,.cta-ribbon .btn-white{
+    background-color:#fff !important;color:var(--ink) !important;
+  }
+  .owner-strip .wrap,.faith-quote,.contact-row .ic{
+    background-color:var(--mist) !important;color:var(--ink) !important;
+  }
+  .band{background:linear-gradient(180deg,#E9EEF5 0%,#EEF2F7 100%) !important}
+  .tint{background:linear-gradient(180deg,#F0F4F8 0%,#F4F7FB 100%) !important}
+  .tint-green{background:linear-gradient(180deg,#EEF2F7 0%,#F4F7FB 100%) !important}
+  .field input,.field select,.field textarea{
+    background:var(--paper) !important;color:var(--ink) !important;
+  }
+  .field input:focus,.field select:focus,.field textarea:focus{background:#fff !important}
+  .form-error{background:#fdecec !important}
+
+  /* Surfaces that are dark ON PURPOSE, re-asserted.
+     Split by which navy they actually compute to in light mode, measured
+     rather than assumed: the theme layer moved .hero, .sec-dark and .stats
+     onto --navy-deep after the base rules put them on --ink. */
+  .page-hero,.footer,.good-to-know,
+  .work-card,.reel-col .reel-media,.reel-col .reel-media video,
+  .gallery-filters button.active{
+    background-color:var(--ink) !important;
+  }
+  .hero,.sec-dark,.stats,.work-3up-band{background-color:var(--navy-deep) !important}
+  .nav-cta,.btn-primary{background-color:var(--blue) !important}
+  .btn-red,.sec-dark .why,.svc-no,.lightbox-flip,
+  .reel-col .reel-media::after{background-color:var(--red) !important}
+  .cta-ribbon.is-blue,body.cta-blue .cta-ribbon{
+    background:linear-gradient(120deg,var(--blue),var(--blue-deep)) !important;
+  }
+
+  /* Text sitting on those dark surfaces */
+  .hero,.hero h1,.hero p,.page-hero,.page-hero h1,.page-hero p,
+  .sec-dark,.sec-dark h2,.sec-dark h3,.sec-dark p,
+  .footer,.footer a,.footer p,.good-to-know,.good-to-know li,
+  .stats,.stats *,.work-card,.work-label,
+  .nav-cta,.btn-primary,.btn-red,.sec-dark .why,.svc-no,.lightbox-flip{
+    color:#fff !important;
+  }
+  .page-hero .kicker{color:var(--red-light) !important}
+}
+
+/* --- 21. Print ----------------------------------------------------------
+   People do print a contractor's contact and estimate pages. Drop the
+   chrome, drop the video and decorative art, put ink on white, and spell
+   out link targets since a printed href is otherwise lost. */
+@media print{
+  *{background:transparent !important;color:#000 !important;box-shadow:none !important}
+  body{font-size:11pt;line-height:1.45}
+  .nav,.nav-toggle,.nav-overlay,.nav-links,.nav-cta,
+  .hero::after,.reel-col,.lightbox,.cta-ribbon,
+  .work-3up-band,.gallery-filters,.flip-toggle,.back-link{display:none !important}
+  .hero,.page-hero{min-height:0 !important;padding:0 0 1rem !important}
+  .hero h1,.page-hero h1{font-size:20pt}
+  h2{font-size:15pt}
+  h1,h2,h3{page-break-after:avoid}
+  img{max-width:55% !important;page-break-inside:avoid}
+  .wrap{width:100% !important;max-width:none !important}
+  section,.svc-card,.contact-row,.panel{page-break-inside:avoid;border-color:#999 !important}
+  a[href^="http"]::after,a[href^="mailto:"]::after{content:" (" attr(href) ")";font-size:9pt;word-break:break-all}
+  .footer{border-top:1px solid #999;padding-top:.6rem}
+}

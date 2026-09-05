@@ -19,7 +19,21 @@ page's flanking layout collapsed into a stack for anyone with a warm cache.
 It looked like a CSS bug and was not. If only HTML changed, do **not** bump,
 because that forces every returning visitor to re-download 50 KB for nothing.
 
-Current: `style.css?v=26`, `main.js?v=13`.
+Current: `style.css?v=27`, `main.js?v=13`.
+
+## The light-mode lock needs all three parts
+
+The two `<meta>` tags and `color-scheme: light only` in `:root` are only two
+thirds of it. Without a `@media (prefers-color-scheme: dark)` block, iOS
+Safari's auto-dark still rewrites any surface it thinks is unstyled. The block
+is section 20 of `style.css` and it uses `!important`, so **a new dark
+background class must be added to the protected list inside it**, or it gets
+flattened to paper for anyone browsing in dark mode.
+
+Assert the protected colors against what light mode actually computes, not
+against the base rule. The theme layer moved `.hero`, `.sec-dark` and `.stats`
+onto `--navy-deep` well after the original rules put them on `--ink`, so three
+of the first assertions were a shade off until they were measured.
 
 ## Never lazy-load a `.flip-back` image
 
