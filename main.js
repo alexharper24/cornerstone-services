@@ -218,3 +218,36 @@
   const y = document.getElementById('year');
   if (y) y.textContent = new Date().getFullYear();
 })();
+
+/* ---------- On-the-job reels -------------------------------------------
+   Muted looping clips, started only while they are actually on screen.
+   Deliberately NOT the autoplay attribute:
+     - preload="metadata" plus play() on intersect means nothing downloads
+       until the visitor scrolls to it, which matters on phone data
+     - it pauses again when scrolled past, so the phone is not decoding
+       video nobody is looking at
+     - prefers-reduced-motion never starts it, and the poster frame stands in
+   The source clips carry no audio track, so a muted loop is silent by nature.
+   ---------------------------------------------------------------------- */
+(function () {
+  const reels = [].slice.call(document.querySelectorAll('video.reel, #reelDeck'));
+  if (!reels.length) return;
+
+  const reduce = window.matchMedia &&
+    window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (reduce || !('IntersectionObserver' in window)) return;   // poster stays
+
+  const io = new IntersectionObserver(function (entries) {
+    entries.forEach(function (e) {
+      const v = e.target;
+      if (e.isIntersecting) {
+        const p = v.play();
+        if (p && p.catch) p.catch(function () { /* refused: poster stays */ });
+      } else if (!v.paused) {
+        v.pause();
+      }
+    });
+  }, { threshold: 0.35 });
+
+  reels.forEach(function (v) { io.observe(v); });
+})();

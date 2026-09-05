@@ -11,3 +11,7 @@ _review*.png
 img/* *.jpg
 img/* *.jpeg
 img/* *.png
+
+# Design concept studies, kept for reference only. Not part of the published
+# site: no light-mode lock, em dashes in copy, so they would fail site-checks.
+concepts/

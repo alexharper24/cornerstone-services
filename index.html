@@ -21,7 +21,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Zilla+Slab:wght@400;500;600;700&family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css?v=11">
+<link rel="stylesheet" href="style.css?v=12">
 <script type="application/ld+json">
 {
   "@context":"https://schema.org",
@@ -62,24 +62,36 @@
   </div>
 </header>
 
-<!-- ===== HERO (navy statement) ===== -->
+<!-- ===== HERO: wooded, project-led ===== -->
 <section class="hero">
+  <img class="hero-photo" src="img/work-exterior-paint.jpg?v=2" alt="Exterior repaint on a wooded lot in the Warsaw, Indiana area" width="1500" height="1125">
   <img class="hero-badge" src="img/logo-round-light.png" alt="">
   <div class="wrap reveal">
-    <span class="hero-eyebrow">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18M5 8h14"/></svg>
-      Warsaw, Indiana &amp; surrounding area
-    </span>
-    <h1>Honest painting &amp; repairs,<br>done right.</h1>
-    <p class="lead">Interior and exterior painting, drywall repair, and small remodels from a Warsaw neighbor who treats your home like his own.</p>
-    <div class="hero-cta">
-      <a href="contact.html" class="btn btn-white">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16v12H5.2L4 17.5z"/></svg>
-        Request a Free Estimate
-      </a>
-      <a href="work.html" class="btn btn-ghost on-dark">See Our Work</a>
+    <div class="hero-copy">
+      <span class="hero-eyebrow">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18M5 8h14"/></svg>
+        Warsaw, Indiana &middot; Family Owned
+      </span>
+
+      <h1>Built on honest work.</h1>
+      <p class="hero-sub">Painting, drywall repair &amp; small remodels.</p>
+
+      <p class="lead">A local craftsman in Warsaw who treats your home and his word with the same care.</p>
+
+      <div class="hero-cta">
+        <a href="contact.html" class="btn btn-red">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16v12H5.2L4 17.5z"/></svg>
+          Request a Free Estimate
+        </a>
+        <a href="work.html" class="btn btn-outline-light">View Recent Projects</a>
+      </div>
+
+      <div class="hero-trust">
+        <span>Faith &amp; integrity</span>
+        <span>Straight answers</span>
+        <span>Work that holds up</span>
+      </div>
     </div>
-    <p class="hero-verse">"Built together into a dwelling place for God." Ephesians 2:20-22</p>
   </div>
 </section>
 
@@ -93,6 +105,25 @@
   </div>
 </section>
 
+<!-- ===== COMPACT STEPHEN INTRODUCTION (moved up, links to About) ===== -->
+<section class="owner-strip">
+  <div class="wrap reveal">
+    <img src="img/stephen-headshot.jpg?v=3" alt="Stephen Williams, owner of Cornerstone Services in Warsaw, Indiana" width="1000" height="1249">
+    <div>
+      <span class="owner-kicker">Meet the Owner</span>
+      <h2>Hi, I&rsquo;m Stephen Williams.</h2>
+      <p>Husband, dad, outdoorsman, and the person who will actually be doing the work on your home.</p>
+    </div>
+    <div class="owner-actions">
+      <a href="about.html" class="btn btn-ghost">Meet Stephen</a>
+      <a href="tel:+15743770573" class="btn btn-ghost">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h4l2 5-2.5 1.5a11 11 0 0 0 6 6L15 14l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 2 6a2 2 0 0 1 2-2z"/></svg>
+        (574) 377-0573
+      </a>
+    </div>
+  </div>
+</section>
+
 <!-- ===== SERVICES ===== -->
 <section>
   <div class="wrap">
@@ -103,6 +134,7 @@
     </div>
     <div class="svc-grid">
       <a href="service-painting.html" class="svc-card has-photo reveal">
+        <span class="svc-no">01</span>
         <div class="svc-photo"><img src="img/svc-painting.jpg" alt="Paint roller, brush, tray and painter's tape ready for an exterior painting job" width="900" height="675" loading="lazy"></div>
         <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="14" height="6" rx="1"/><path d="M17 7h3v4h-6M11 10v3a1 1 0 0 1-1 1H9v6h2"/></svg></div>
         <h3>Interior &amp; Exterior Painting</h3>
@@ -115,6 +147,7 @@
         <span class="card-more">Learn more <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
       </a>
       <a href="service-drywall.html" class="svc-card has-photo reveal">
+        <span class="svc-no">02</span>
         <div class="svc-photo"><img src="img/svc-drywall.jpg" alt="Drywall knives, joint compound, tape and sanding sponge in a room being patched" width="900" height="675" loading="lazy"></div>
         <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3l6 6-2 2-6-6zM13 5L4 14v6h6l9-9"/></svg></div>
         <h3>Small Drywall Finish &amp; Repair</h3>
@@ -127,6 +160,7 @@
         <span class="card-more">Learn more <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
       </a>
       <a href="service-remodel.html" class="svc-card has-photo reveal">
+        <span class="svc-no">03</span>
         <div class="svc-photo"><img src="img/svc-remodel.jpg" alt="Cordless drill, level, tape measure and hinges laid out for a small remodel" width="900" height="675" loading="lazy"></div>
         <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M14 6l4 4M3 21l9-9M17.5 2.5a3.5 3.5 0 0 0 0 5L14 11l-1-1 3.5-3.5a1.5 1.5 0 0 1-2-2L18 1z"/></svg></div>
         <h3>Small Remodels &amp; Fixes</h3>
@@ -142,50 +176,38 @@
   </div>
 </section>
 
-<!-- ===== WHY / VALUES ===== -->
-<section class="sec-dark">
+<!-- ===== RECENT WORK (3-up sample, links to Our Work) ===== -->
+<section class="sec-dark work-3up-band">
   <div class="wrap">
-    <div class="sec-head light reveal">
-      <span class="kicker">Why Cornerstone</span>
-      <h2>Work you can count on</h2>
-    </div>
-    <div class="why-grid">
-      <div class="why reveal">
-        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v5c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6z"/><path d="M9 12l2 2 4-4"/></svg></div>
-        <h3>Honest &amp; upfront</h3>
-        <p>Clear estimates, fair prices, and no surprises when the job is done.</p>
-      </div>
-      <div class="why reveal">
-        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></div>
-        <h3>Shows up on time</h3>
-        <p>When we say we'll be there, we're there, and we keep you posted.</p>
-      </div>
-      <div class="why reveal">
-        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18M5 21V8l7-4 7 4v13M9 21v-6h6v6"/></svg></div>
-        <h3>Treats your home right</h3>
-        <p>Floors covered, surfaces protected, and everything cleaned up before we go.</p>
-      </div>
-      <div class="why reveal">
-        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18M5 8h14"/></svg></div>
-        <h3>Faith &amp; integrity</h3>
-        <p>Cornerstone is built on doing right by people, the way we'd want to be treated.</p>
-      </div>
+    <div class="sec-head light center reveal">
+      <span class="kicker">Recent Work</span>
+      <h2>A sample of recent projects</h2>
+      <p>Real Cornerstone jobs around Warsaw.</p>
     </div>
   </div>
-</section>
-
-<!-- ===== ABOUT TEASER ===== -->
-<section class="tint">
-  <div class="wrap split">
-    <div class="media reveal">
-      <img class="portrait" src="img/stephen-headshot.jpg?v=3" alt="Stephen Williams, owner of Cornerstone Services in Warsaw, Indiana" width="1000" height="1249">
-    </div>
-    <div class="reveal">
-      <span class="sec-head" style="text-align:left;margin:0 0 .5rem"><span class="kicker">Meet the Owner</span></span>
-      <h2>Hi, I'm Stephen Williams.</h2>
-      <p>I'm a husband, a dad to two boys, and the one who'll actually be doing the work on your home. Cornerstone is my family business here in Warsaw, built on a simple idea: treat every home like it's my own and do the job right.</p>
-      <p>Need a fresh coat of paint, a drywall patch, or help with a project that's lingered too long? I'd be glad to take a look.</p>
-      <a href="about.html" class="btn btn-ghost">Read Our Story</a>
+  <div class="work-3up">
+      <a class="work-card reveal" href="work.html">
+        <img src="img/work-deck-after.jpg" alt="Multi level wood deck and steps refinished in a light grey" width="1200" height="900" loading="lazy">
+        <span class="work-label">Deck refinish
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </span>
+      </a>
+      <a class="work-card reveal" href="work.html">
+        <img src="img/work-exterior-home.jpg?v=2" alt="Freshly painted two-story home exterior in the Warsaw, IN area" width="1500" height="1125" loading="lazy">
+        <span class="work-label">Exterior repaint
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </span>
+      </a>
+      <a class="work-card reveal" href="work.html">
+        <img src="img/work-entry-1.jpg" alt="Refinished front entrance with stained wood doors and painted portico" width="1500" height="1125" loading="lazy">
+        <span class="work-label">Entry &amp; door refinish
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </span>
+      </a>
+  </div>
+  <div class="wrap">
+    <div class="work-3up-more reveal">
+      <a href="work.html" class="btn btn-red">See all our work</a>
     </div>
   </div>
 </section>
@@ -196,8 +218,8 @@
     <h2>Ready to freshen things up?</h2>
     <p>Tell us about your project and we'll get back to you with availability and a free, no-pressure estimate.</p>
     <div class="actions">
-      <a href="contact.html" class="btn btn-white">Request a Free Estimate</a>
-      <a href="tel:+15743770573" class="btn btn-ghost on-dark">
+      <a href="contact.html" class="btn btn-red">Request a Free Estimate</a>
+      <a href="tel:+15743770573" class="btn btn-outline-light">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h4l2 5-2.5 1.5a11 11 0 0 0 6 6L15 14l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 2 6a2 2 0 0 1 2-2z"/></svg>
         (574) 377-0573
       </a>
@@ -240,6 +262,6 @@
   </div>
 </footer>
 
-<script src="main.js?v=10"></script>
+<script src="main.js?v=11"></script>
 </body>
 </html>

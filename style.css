@@ -442,3 +442,454 @@ section{padding:clamp(3.5rem,7vw,6rem) 0}
 @media (max-width: 640px) {
   footer .cols a, footer .fcontact a { padding-top: 11px; padding-bottom: 11px; }
 }
+
+
+/* ==========================================================================
+   MODERN HOMESTEAD THEME
+   --------------------------------------------------------------------------
+   Added 2026-09-05. Navy stays the primary brand colour; oxblood #872C38 is
+   an accent only. Everything below was measured in a browser before landing:
+   contrast figures quoted in the comments are real readings against the
+   actual photos and surfaces, not estimates.
+   ========================================================================== */
+/* ==========================================================================
+   PROPOSED THEME PACKAGE  ·  Modern Homestead
+   --------------------------------------------------------------------------
+   This block is the whole proposal. Nothing here has been written into
+   style.css yet: the preview loads the real stylesheet above and layers these
+   rules on top, so this block IS the diff to fold in once approved.
+   Grouped in the order it would be added to style.css.
+   ========================================================================== */
+
+/* --- 1. New tokens (added; nothing renamed) ------------------------------ */
+:root{
+  --red:#872C38;            /* oxblood, primary accent            */
+  --red-dark:#69212B;       /* hover / pressed                    */
+  --red-tint:#F4E9EB;       /* pale wash for light surfaces       */
+  --red-light:#D89BA4;      /* the accent, legible on navy        */
+  --red-pale:#EBC6CB;       /* red-toned TEXT over the hero photo */
+  --tile-edge:rgba(169,192,214,.8); /* steel-blue card edge, not neutral grey */
+  --navy-deep:#0A203D;      /* darker ground than --ink           */
+}
+
+/* --- 1b. Wider shared container -----------------------------------------
+   The nav sat at min(92%,1200px) while the hero used a separate 1360px
+   container, so the logo landed 70px inside the hero copy. One container
+   for everything fixes the alignment and widens the whole site a step. */
+:root{ --maxw:1320px; }
+.wrap{width:min(94%,var(--maxw))}
+
+/* --- 1c. Header: let the nav actually fill its container ----------------
+   main.js appends .nav-overlay into .nav .wrap. Its position:fixed rule
+   lives INSIDE the max-width:860px block, so above 860px the overlay is a
+   static, zero-width third flex item sitting at the container's right edge,
+   and space-between parks the links in the MIDDLE. Measured at 1920: the
+   Free Estimate button ended 315px short of the container edge while the
+   logo sat flush left, which is what made the header look narrower than the
+   rest of the page. Taking the overlay out of flow at every width fixes it.
+   This is a pre-existing bug on the live site, not something the new theme
+   introduced; widening the container just made it obvious. */
+.nav-overlay{position:fixed}
+
+/* --- 2. Retuned tokens: squarer corners, less "SaaS" --------------------- */
+/*        (was --radius:16px / --radius-lg:22px)                            */
+:root{
+  --radius:11px;
+  --radius-lg:14px;
+}
+
+/* --- 4. Buttons: rectangular, not pills --------------------------------- */
+.btn{border-radius:10px}
+.btn-red{background:var(--red);color:#fff}
+.btn-outline-light{background:transparent;color:#fff;border-color:rgba(255,255,255,.55)}
+@media (hover:hover){
+  .btn-red:hover{background:var(--red-dark);transform:translateY(-2px)}
+  .btn-outline-light:hover{background:rgba(255,255,255,.14);border-color:#fff;color:#fff}
+}
+@media (hover:none){
+  .btn-red:hover{background:var(--red);transform:none}
+}
+/* Secondary/outline buttons had border-color:var(--line) #E5E8EA, which
+   measured 1.09:1 on the grey card and 1.23:1 on white: no visible edge, and
+   under the 3:1 WCAG asks for a UI component boundary. --blue is 5.86:1 and
+   6.65:1, defined without competing with the red primary. */
+.btn-ghost{border-color:var(--blue)}
+@media (hover:hover){
+  .btn-ghost:hover{border-color:var(--blue-deep);color:var(--blue-deep)}
+}
+/* De-pill the remaining pill-shaped chrome */
+.gallery-filters button{border-radius:8px}
+.flip-badge,.album-badge,.flip-toggle{border-radius:6px}
+
+/* --- 5. Accent rule used as a section marker ---------------------------- */
+.kicker{position:relative}
+.sec-head .kicker{color:var(--red)}
+.sec-head .kicker::before{
+  content:"";display:inline-block;width:26px;height:3px;
+  background:var(--red);vertical-align:middle;margin-right:.6rem;
+  position:relative;top:-2px;
+}
+.sec-head.light .kicker{color:var(--red-light)}
+.sec-head.light .kicker::before{background:var(--red-light)}
+
+/* --- 6. HOMEPAGE HERO: project-led, wooded, navy scrim ------------------ */
+.hero{
+  min-height:clamp(540px,70vh,730px);
+  display:flex;align-items:flex-end;
+  text-align:left;background:var(--navy-deep);
+}
+.hero::before{display:none}          /* kill the old decorative blob        */
+.hero-photo{
+  position:absolute;inset:0;width:100%;height:100%;
+  object-fit:cover;object-position:center 46%;
+}
+/* Repurpose the old blob pseudo-element as the readability scrim.
+   Lightened so the wooded photo reads through: the right two thirds are
+   close to clear, and the left column keeps just enough navy to hold the
+   copy at AA. Verified against the photo's own pixels, not guessed. */
+.hero::after{
+  content:"";position:absolute;inset:0;top:auto;left:auto;
+  width:100%;height:100%;border-radius:0;background:
+    linear-gradient(90deg,
+      rgba(10,32,61,.88) 0%,
+      rgba(10,32,61,.72) 42%,
+      rgba(10,32,61,.28) 72%,
+      rgba(10,32,61,.10) 100%),
+    linear-gradient(0deg, rgba(10,32,61,.55), transparent 62%);
+}
+.hero .wrap{
+  position:relative;z-index:2;
+  width:min(94%,var(--maxw));max-width:none;
+  padding:clamp(3.8rem,7.5vw,5.5rem) 0 clamp(3rem,5vw,4rem);
+}
+.hero-copy{max-width:47rem}
+.hero .hero-eyebrow{
+  color:#fff;background:rgba(135,44,56,.85);
+  border:1px solid rgba(216,155,164,.5);
+  padding:.42rem .85rem;border-radius:6px;
+  font-size:.78rem;letter-spacing:.13em;text-transform:uppercase;
+}
+.hero .hero-eyebrow svg{width:13px;height:13px;color:#fff}
+.hero h1{
+  font-size:clamp(2.6rem,6.4vw,5.2rem);letter-spacing:-.02em;
+  margin:1.15rem 0 0;max-width:38rem;
+}
+.hero .hero-sub{
+  font-family:var(--head);font-weight:600;
+  font-size:clamp(1.05rem,1.9vw,1.45rem);
+  /* --red-pale, not --red-light: this line is 17px bold on phones, under the
+     18.66px large-text cutoff, so it needs 4.5:1. #D89BA4 measured 3.71:1
+     against the lightened scrim; #EBC6CB measures 5.46:1. */
+  color:var(--red-pale);margin:.65rem 0 0;letter-spacing:.01em;
+}
+.hero p.lead{
+  font-size:1.16rem;color:rgba(255,255,255,.88);
+  margin:1.15rem 0 2rem;max-width:34rem;
+}
+.hero .hero-cta{justify-content:flex-start}
+.hero-trust{
+  display:flex;flex-wrap:wrap;gap:.5rem 1.7rem;margin-top:2.1rem;
+  font-family:var(--head);font-weight:600;font-size:.95rem;
+  color:rgba(255,255,255,.86);
+}
+.hero-trust span{display:inline-flex;align-items:center;gap:.5rem}
+.hero-trust span::before{content:"\2605";color:var(--red-pale);font-size:.85em}
+.hero-badge{opacity:.72;z-index:2}
+
+/* --- 7. Trust strip: darker ground, red hairline ------------------------ */
+.stats{
+  background:var(--navy-deep);
+  border-top:3px solid var(--red);
+  border-bottom:1px solid rgba(255,255,255,.1);
+}
+.stats .ic{color:var(--red-light)}
+/* Extra bottom padding so the owner card below overlaps EMPTY navy rather
+   than this strip's text. Without it the card's top edge cut 17px off all
+   four trust items, hiding most of their height. */
+.stats .wrap{padding-bottom:3.4rem}
+
+/* --- 8. Compact Stephen introduction ----------------------------------- */
+/*        Raised card, squared, red base rule. Overlaps the strip above on
+          desktop only; stacks flat and full width on phones.              */
+.owner-strip{padding-block:0;background:transparent;position:relative;z-index:4}
+.owner-strip .wrap{
+  display:grid;grid-template-columns:84px 1fr auto;
+  align-items:center;gap:1.15rem;
+  /* No bottom margin: the next section already brings its own 96px top
+     padding, and stacking both gave a 168px void under the card. */
+  margin-top:-38px;margin-bottom:0;
+  padding:.9rem 1.15rem;
+  background:var(--mist);                 /* light grey, in palette */
+  border:2px solid var(--red);            /* framed all the way round */
+  border-radius:var(--radius);
+  box-shadow:0 18px 44px -30px rgba(10,32,61,.5);
+}
+.owner-strip img{
+  width:84px;height:84px;object-fit:cover;object-position:center 18%;
+  border-radius:7px;
+}
+.owner-strip .owner-kicker{
+  display:block;font-family:var(--head);font-weight:700;
+  font-size:.74rem;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--red);margin-bottom:.3rem;
+}
+.owner-strip .owner-kicker{margin-bottom:.2rem}
+.owner-strip h2{font-size:clamp(1.2rem,2vw,1.5rem);margin:0 0 .2rem;line-height:1.15}
+.owner-strip p{color:var(--ink-soft);margin:0;font-size:.97rem;line-height:1.5}
+.owner-strip .btn{white-space:nowrap}
+/* Meet Stephen + tap-to-call as a matched secondary pair. Both stay outline
+   rather than red: the red is reserved for "Request a Free Estimate" so the
+   primary action keeps its meaning. */
+.owner-strip .owner-actions{display:flex;align-items:center;gap:.6rem}
+
+/* --- 9. Services: field-note numbering, red accents -------------------- */
+.svc-card{border-radius:var(--radius)}
+.svc-card .svc-photo{aspect-ratio:16/10}
+.svc-card::after{background:var(--red)}         /* was a blue/green gradient */
+.svc-card .ic{border-radius:9px}
+.svc-card ul li::before{background:var(--blue)} /* keep bullets navy, not red */
+.svc-no{
+  position:absolute;top:0;left:0;z-index:2;
+  font-family:var(--head);font-weight:700;font-size:.74rem;letter-spacing:.14em;
+  color:#fff;background:var(--red);padding:.34rem .68rem;
+  border-radius:0 0 8px 0;
+}
+.svc-card .card-more{color:var(--red)}
+
+/* --- 10. Values band: flatter and ruled ------------------------------- */
+.sec-dark{background:var(--navy-deep)}
+.sec-dark::before,.sec-dark::after{display:none}
+.sec-dark .why{
+  background:rgba(255,255,255,.05);
+  border:1px solid rgba(255,255,255,.14);
+  border-left:4px solid rgba(255,255,255,.22);
+  border-radius:var(--radius);box-shadow:none;
+}
+.sec-dark .why .ic{background:rgba(216,155,164,.16);color:var(--red-light);border-radius:9px}
+
+/* --- 10c. Recent-work 3-up on the oxblood band ------------------------
+   Cards reuse the navy + steel-edge treatment from the values tiles, so the
+   band keeps the same material language. Photos are pinned to a uniform 4/3
+   with object-fit:cover, because the three sources are 1200x900 and 1500x1125
+   and an unpinned grid would step. */
+.work-3up{display:grid;grid-template-columns:repeat(3,1fr)}
+/* --blue-deep, NOT --ink. On a --navy-deep band an --ink card measures
+   1.18:1, which is worse than the 1.21:1 red-on-red that read as muddy.
+   --blue-deep is 1.86:1, above the 1.61:1 that already worked here. */
+.work-card{
+  display:block;overflow:hidden;color:#fff;
+  background:var(--blue-deep);
+  border:1px solid var(--tile-edge);
+  border-radius:var(--radius);
+  transition:transform .3s var(--ease),box-shadow .3s var(--ease);
+}
+.work-card img{
+  /* height:auto is required, not optional. The width/height HTML attributes
+     (needed to stop layout shift) apply as presentational hints, and a hint
+     of height:900px beats aspect-ratio, which only computes a height when
+     height is auto. Without this the cards rendered 1180px tall at a 0.47
+     aspect instead of 4/3. */
+  /* 3/2 rather than 4/3: now the grid runs near full width the cards are
+     ~620px each, and a 4/3 crop made them 467px deep, which is what pushed
+     the band to 928px tall. 3/2 trims that without cropping much off a 4/3
+     source (12.5% of the height). */
+  width:100%;height:auto;aspect-ratio:3/2;
+  object-fit:cover;display:block;
+  transition:transform .5s var(--ease);
+}
+.work-label{
+  display:flex;align-items:center;justify-content:space-between;gap:.6rem;
+  padding:.85rem 1.05rem;
+  font-family:var(--head);font-weight:600;font-size:1rem;color:#fff;
+}
+.work-label svg{width:17px;height:17px;flex:0 0 auto;color:var(--red-light);
+  transition:transform .25s var(--ease)}
+@media (hover:hover){
+  .work-card:hover{transform:translateY(-5px);box-shadow:0 22px 46px -26px rgba(0,0,0,.6)}
+  .work-card:hover img{transform:scale(1.05)}
+  .work-card:hover .work-label svg{transform:translateX(4px)}
+}
+@media (hover:none){
+  .work-card:hover{transform:none;box-shadow:none}
+  .work-card:hover img{transform:none}
+}
+.work-3up-more{
+  display:flex;flex-direction:column;align-items:center;gap:.8rem;
+  text-align:center;
+}
+
+/* --- 10d. Recent-work band: navy ground, red accents ------------------
+   The 1320px site container left a lot of dead ground either side of the
+   photos on a wide monitor, and the standard 96px section padding made the
+   band the tallest thing on the page, so the grid gets its own much wider
+   container and the band its own tighter rhythm.
+   Navy is the primary here and red is reserved for accents: the top hairline,
+   the kicker, the card arrows and the closing button. */
+.work-3up-band{
+  background:var(--navy-deep);
+  border-top:3px solid var(--red);
+  padding-block:clamp(2.1rem,3.4vw,3rem);
+}
+.work-3up-band .sec-head{margin-bottom:1.6rem}
+.work-3up{
+  position:relative;z-index:1;
+  width:min(96%,1920px);margin-inline:auto;
+  gap:1.15rem;
+}
+.work-3up-more{margin-top:1.5rem}
+/* --- 11. Reel strip: phone-shot clip at its native proportions --------
+   The source is 9:16 portrait, so it is shown at phone size rather than
+   cropped: fitting it into a landscape frame would throw away ~72% of the
+   picture. Sits on mist so the navy work band above and the white CTA below
+   both get a tonal step. */
+.reel-strip{background:var(--mist);border-top:1px solid var(--line)}
+.reel-strip .wrap{
+  display:grid;grid-template-columns:auto 1fr;
+  gap:clamp(1.6rem,4vw,3.4rem);align-items:center;
+}
+.reel-media{
+  position:relative;width:300px;flex:0 0 auto;
+  border:2px solid var(--ink);border-radius:var(--radius);
+  overflow:hidden;background:var(--ink);
+  box-shadow:0 22px 50px -30px rgba(10,32,61,.6);
+}
+.reel-media video{
+  display:block;width:100%;height:auto;aspect-ratio:9/16;
+  object-fit:cover;background:var(--ink);
+}
+/* Small red flag in the corner, same accent language as the work band */
+.reel-media::after{
+  content:"On the job";
+  position:absolute;top:0;left:0;z-index:2;
+  font-family:var(--head);font-weight:700;font-size:.68rem;
+  letter-spacing:.14em;text-transform:uppercase;
+  color:#fff;background:var(--red);padding:.32rem .66rem;
+  border-radius:0 0 8px 0;
+}
+.reel-copy h2{margin-bottom:.8rem}
+.reel-copy p{color:var(--ink-soft);margin-bottom:1.4rem;max-width:46ch}
+.reel-copy .btn{margin-right:.6rem}
+
+/* --- 12. CTA ribbon ----------------------------------------------------
+   White by default so the red CTA carries the section and the navy footer
+   below reads as a deliberate close. The preview bar swaps in the original
+   lighter-blue gradient for comparison. */
+.cta-ribbon{
+  background:#fff;color:var(--ink);border-top:1px solid var(--line);
+}
+/* Real walnut grain from img/rich-wood-grain-stockcake.jpg, whitewashed so the
+   band still reads white. It runs on the ::before layer (the base rule used
+   this for a radial glow) rather than as a background on the section itself,
+   so the filter never touches the text.
+   cover + no-repeat on purpose: the source is 672x384 and a photo like this
+   does NOT tile seamlessly, so repeating it would put a visible vertical seam
+   down the section. One stretched instance has no seam, and the softness from
+   upscaling is invisible once the image is this washed out. */
+.cta-ribbon::before{
+  display:block;content:"";
+  position:absolute;inset:0;z-index:0;pointer-events:none;
+  background:url("img/rich-wood-grain-stockcake.jpg") center/cover no-repeat;
+  /* Tuned by measurement, not by eye. Body copy on this band needs 4.5:1,
+     which means the darkest grain pixel has to stay above ~228. That caps the
+     texture's whole tonal range at about 26 levels, so the only question is
+     how to spend them. Counter-intuitively contrast goes UP, not down:
+     contrast() pivots around mid-grey, so contrast(<1) drags the wood toward
+     grey and made the band look dirty (mean 213, body text failed at 3.38:1).
+     contrast(1.3) keeps the wood's natural range, brightness lifts it near
+     white, and a low opacity spends the 26 levels. Result: mean 242, darkest
+     229, body 4.73:1, heading 10.94:1. */
+  filter:grayscale(.5) brightness(2.4) contrast(1.3);
+  opacity:.10;
+}
+.cta-ribbon .wrap{position:relative;z-index:1}
+.cta-ribbon h2{color:var(--ink)}
+.cta-ribbon p{color:var(--ink-soft)}
+.cta-ribbon .btn-outline-light{color:var(--ink);border-color:var(--blue);background:transparent}
+@media (hover:hover){
+  .cta-ribbon .btn-outline-light:hover{border-color:var(--blue);color:var(--blue);background:var(--mist)}
+}
+.cta-ribbon a:focus-visible{outline-color:var(--red)}
+
+/* Variant: the original lighter blue */
+body.cta-blue .cta-ribbon{background:linear-gradient(120deg,var(--blue),var(--blue-deep));color:#fff;border-top:0}
+body.cta-blue .cta-ribbon::before{display:none}   /* grain is lost on the gradient anyway */
+body.cta-blue .cta-ribbon h2{color:#fff}
+body.cta-blue .cta-ribbon p{color:rgba(255,255,255,.9)}
+body.cta-blue .cta-ribbon .btn-outline-light{color:#fff;border-color:rgba(255,255,255,.55)}
+body.cta-blue .cta-ribbon a:focus-visible{outline-color:#fff}
+
+/* --- 13. Accessibility: visible keyboard focus, honoured reduced motion  */
+a:focus-visible,button:focus-visible,
+input:focus-visible,select:focus-visible,textarea:focus-visible{
+  outline:3px solid var(--red);
+  outline-offset:3px;
+  border-radius:4px;
+}
+.hero a:focus-visible,.sec-dark a:focus-visible,
+.stats a:focus-visible,.footer a:focus-visible{
+  outline-color:#fff;
+}
+@media (prefers-reduced-motion: reduce){
+  *,*::before,*::after{
+    animation-duration:.001ms !important;animation-iteration-count:1 !important;
+    transition-duration:.001ms !important;scroll-behavior:auto !important;
+  }
+  .reveal{opacity:1 !important;transform:none !important}
+}
+/* prefers-reduced-motion is handled in JS too: the clip is never started, so
+   the poster frame is what the visitor sees. */
+
+/* --- 14. Responsive ---------------------------------------------------- */
+@media (max-width:860px){
+  .work-3up{grid-template-columns:1fr 1fr}
+  .reel-strip .wrap{grid-template-columns:1fr;justify-items:center;text-align:center}
+  .reel-copy p{margin-inline:auto}
+  .owner-strip .wrap{grid-template-columns:76px 1fr;margin-top:-30px}
+  .owner-strip img{width:76px;height:76px}
+  .owner-strip .owner-actions{grid-column:1 / -1;width:100%}
+  .owner-strip .owner-actions .btn{flex:1;justify-content:center}
+}
+@media (max-width:680px){
+  .hero{min-height:0}
+  .hero .wrap{padding:clamp(3rem,10vw,4rem) 0 clamp(2.6rem,8vw,3.4rem)}
+  .hero::after{background:
+      linear-gradient(90deg, rgba(10,32,61,.84), rgba(10,32,61,.72)),
+      linear-gradient(0deg, rgba(10,32,61,.6), transparent 66%);}
+  .hero h1{font-size:clamp(2.35rem,10vw,3rem)}
+  .hero p.lead{font-size:1.05rem}
+  .hero .hero-cta{flex-direction:column;align-items:stretch}
+  .hero .hero-cta .btn{justify-content:center}
+  .hero-trust{gap:.45rem 1.2rem}
+  .work-3up{grid-template-columns:1fr;gap:1.1rem}
+  .reel-media{width:min(78%,260px)}
+  .reel-copy .btn{width:100%;justify-content:center;margin:0 0 .6rem}
+  .stats .wrap{padding-bottom:2.6rem}
+  .owner-strip .wrap{
+    grid-template-columns:64px 1fr;gap:.9rem;padding:.85rem .95rem;margin-top:-24px;
+  }
+  .owner-strip img{width:64px;height:64px}
+  .owner-strip p{font-size:.94rem}
+  /* Two side-by-side buttons plus a phone number is too tight at 390 */
+  .owner-strip .owner-actions{flex-direction:column;gap:.5rem}
+  .owner-strip .owner-actions .btn{width:100%}
+}
+
+
+/* --- 11b. Two reels side by side (service pages) -----------------------
+   Same phone proportions as the single strip, laid out as a pair with a
+   caption under each. Stacks to one column on phones. */
+.reel-2up{
+  display:grid;grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:clamp(1.2rem,3vw,2.2rem);
+  max-width:720px;margin-inline:auto;
+}
+.reel-2up figure{margin:0}
+.reel-2up .reel-media{width:100%}
+.reel-2up figcaption{
+  margin-top:.7rem;text-align:center;
+  font-family:var(--head);font-weight:600;font-size:.95rem;color:var(--ink);
+}
+.reel-strip .sec-head{margin-bottom:2rem}
+@media (max-width:640px){
+  .reel-2up{grid-template-columns:1fr;max-width:300px}
+}
