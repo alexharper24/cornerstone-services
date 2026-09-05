@@ -667,45 +667,46 @@ section{padding:clamp(3.5rem,7vw,6rem) 0}
 }
 .sec-dark .why .ic{background:rgba(216,155,164,.16);color:var(--red-light);border-radius:9px}
 
-/* --- 10c. Recent-work 3-up on the oxblood band ------------------------
-   Cards reuse the navy + steel-edge treatment from the values tiles, so the
-   band keeps the same material language. Photos are pinned to a uniform 4/3
-   with object-fit:cover, because the three sources are 1200x900 and 1500x1125
-   and an unpinned grid would step. */
+/* --- 10c. Recent-work 3-up ---------------------------------------------
+   Captions sit ON the photo over a scrim, the same treatment .g-item
+   figcaption already uses on the Our Work page, rather than in a separate
+   bar underneath. The bar version read as a slab bolted to the bottom of
+   each picture and made the row look assembled from parts; this way the
+   photo is the card and the whole band gets quieter.
+   Photos are pinned to a uniform 3/2 with object-fit:cover, because the
+   sources are 1200x900 and 1500x1125 and an unpinned grid would step. */
 .work-3up{display:grid;grid-template-columns:repeat(3,1fr)}
-/* --blue-deep, NOT --ink. On a --navy-deep band an --ink card measures
-   1.18:1, which is worse than the 1.21:1 red-on-red that read as muddy.
-   --blue-deep is 1.86:1, above the 1.61:1 that already worked here. */
 .work-card{
-  display:block;overflow:hidden;color:#fff;
-  background:var(--blue-deep);
-  border:1px solid var(--tile-edge);
+  display:block;position:relative;overflow:hidden;color:#fff;
   border-radius:var(--radius);
-  transition:transform .3s var(--ease),box-shadow .3s var(--ease);
+  border:1px solid rgba(169,192,214,.3);
+  background:var(--ink);
+  transition:transform .3s var(--ease),box-shadow .3s var(--ease),border-color .3s var(--ease);
 }
 .work-card img{
-  /* height:auto is required, not optional. The width/height HTML attributes
-     (needed to stop layout shift) apply as presentational hints, and a hint
-     of height:900px beats aspect-ratio, which only computes a height when
-     height is auto. Without this the cards rendered 1180px tall at a 0.47
-     aspect instead of 4/3. */
-  /* 3/2 rather than 4/3: now the grid runs near full width the cards are
-     ~620px each, and a 4/3 crop made them 467px deep, which is what pushed
-     the band to 928px tall. 3/2 trims that without cropping much off a 4/3
-     source (12.5% of the height). */
+  /* height:auto is required: the width/height attributes apply as
+     presentational hints and a hint of height:900px beats aspect-ratio,
+     which only computes a height when height is auto. */
   width:100%;height:auto;aspect-ratio:3/2;
   object-fit:cover;display:block;
   transition:transform .5s var(--ease);
 }
 .work-label{
+  position:absolute;left:0;right:0;bottom:0;z-index:1;
   display:flex;align-items:center;justify-content:space-between;gap:.6rem;
-  padding:.85rem 1.05rem;
+  padding:2.2rem 1.05rem .9rem;
   font-family:var(--head);font-weight:600;font-size:1rem;color:#fff;
+  /* Measured against the real photos: the weakest label sat at 4.71:1 with a
+     .92/.55 ramp, which passes but leaves no room if a photo is swapped for a
+     brighter one. This ramp holds the worst case comfortably clear. */
+  background:linear-gradient(to top,
+    rgba(10,32,61,.96), rgba(10,32,61,.72) 45%, rgba(10,32,61,.25) 78%, transparent);
 }
 .work-label svg{width:17px;height:17px;flex:0 0 auto;color:var(--red-light);
   transition:transform .25s var(--ease)}
 @media (hover:hover){
-  .work-card:hover{transform:translateY(-5px);box-shadow:0 22px 46px -26px rgba(0,0,0,.6)}
+  .work-card:hover{transform:translateY(-5px);border-color:rgba(169,192,214,.6);
+    box-shadow:0 22px 46px -26px rgba(0,0,0,.6)}
   .work-card:hover img{transform:scale(1.05)}
   .work-card:hover .work-label svg{transform:translateX(4px)}
 }
@@ -727,8 +728,11 @@ section{padding:clamp(3.5rem,7vw,6rem) 0}
    the kicker, the card arrows and the closing button. */
 .work-3up-band{
   background:var(--navy-deep);
+  /* Framed on both edges. With white above and the white CTA below, a single
+     top rule left the band looking like it just stopped at the bottom. */
   border-top:3px solid var(--red);
-  padding-block:clamp(2.1rem,3.4vw,3rem);
+  border-bottom:3px solid var(--red);
+  padding-block:clamp(2.6rem,4vw,3.6rem);
 }
 .work-3up-band .sec-head{margin-bottom:1.6rem}
 .work-3up{
@@ -749,11 +753,22 @@ section{padding:clamp(3.5rem,7vw,6rem) 0}
    or grid-row juggling: it just stacks description then clip. */
 .svc-flank{
   display:grid;
-  grid-template-columns:minmax(0,1fr) auto;
+  /* The copy TRACK is capped at the reading measure and the pair is centred,
+     rather than the copy being capped inside a full-width track. Sizing the
+     track is what keeps the clip next to the text: with a 1fr track the copy
+     stopped at 68ch and ~480px of slack opened up between them, and simply
+     removing the cap pushed lines out to 99 characters. This gives ~68ch
+     lines AND a tight gap. */
+  /* 62ch, not 68: the ch unit is the width of "0", which in Work Sans is
+     wider than an average lowercase character, so a 68ch track measured 79
+     real characters per line. 62ch measures 60, inside the comfortable
+     45-75 range. Counted from rendered line boxes, not estimated. */
+  grid-template-columns:minmax(0,62ch) auto;
+  justify-content:center;
   gap:clamp(1.2rem,3vw,2.6rem);
   align-items:stretch;
 }
-.svc-flank .svc-copy{min-width:0;max-width:68ch}
+.svc-flank .svc-copy{min-width:0}
 .reel-col{
   display:flex;flex-direction:column;
   width:clamp(170px,17vw,260px);
