@@ -953,3 +953,17 @@ input:focus-visible,select:focus-visible,textarea:focus-visible{
   .owner-strip .owner-actions{flex-direction:column;gap:.5rem}
   .owner-strip .owner-actions .btn{width:100%}
 }
+
+/* --- 15. Theme coverage on the interior pages -------------------------
+   Two things the theme missed on first pass.
+
+   The interior page-hero kicker kept the pre-theme steel blue while every
+   other kicker on the site went red, so "SERVICE" above each h1 was the last
+   piece of old palette on the page. --red-light rather than --red because
+   the band is navy: 6.00:1 against --ink, where the flat red would be 1.61:1.
+
+   And the form inputs were .95rem. Under 16px, iOS Safari zooms the page on
+   focus and does not zoom back, which throws the layout off mid-form. 1rem
+   also meets the 16px floor the brief asked for. */
+.page-hero .kicker{color:var(--red-light)}
+.field input,.field select,.field textarea{font-size:1rem}
