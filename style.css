@@ -737,28 +737,26 @@ section{padding:clamp(3.5rem,7vw,6rem) 0}
   gap:1.15rem;
 }
 .work-3up-more{margin-top:1.5rem}
-/* --- 11. Reels flanking a service description --------------------------
-   One clip either side of the copy, both stretched to the SAME height as the
-   copy column so the three columns line up top and bottom. That is why the
-   video drops its 9/16 aspect-ratio here and uses height:100% with
-   object-fit:cover instead: the row height is set by the copy, and the clip
-   crops at the sides to fill it. The action in both clips is centred, so a
-   side crop costs nothing.
-   .reel-col is a flex column with the media on flex:1, so the captions sit on
-   a common baseline no matter how tall the copy runs. */
+/* --- 11. A reel beside a service description ---------------------------
+   One clip to the right of the copy, stretched to the SAME height as it so
+   the two columns line up top and bottom. That is why the video drops its
+   9/16 aspect-ratio here and uses height:100% with object-fit:cover: the row
+   height is set by the copy and the clip crops at the sides, which costs
+   nothing because the action is centre-framed.
+   .reel-col is a flex column with the media on flex:1, so the caption always
+   sits at the bottom however long the copy runs.
+   Copy comes FIRST in the DOM, so the single-column fallback needs no order
+   or grid-row juggling: it just stacks description then clip. */
 .svc-flank{
   display:grid;
-  grid-template-columns:auto minmax(0,1fr) auto;
-  gap:clamp(1rem,2.2vw,2rem);
+  grid-template-columns:minmax(0,1fr) auto;
+  gap:clamp(1.2rem,3vw,2.6rem);
   align-items:stretch;
 }
-/* Centred in its column: the copy caps at 68ch for readability, so without
-   this the whole 147px of slack piled up on one side (32px gap left of the
-   copy against 180px right) and the row read lopsided. */
-.svc-flank .svc-copy{min-width:0;max-width:68ch;margin-inline:auto}
+.svc-flank .svc-copy{min-width:0;max-width:68ch}
 .reel-col{
   display:flex;flex-direction:column;
-  width:clamp(150px,15vw,230px);
+  width:clamp(170px,17vw,260px);
   margin:0;
 }
 .reel-col .reel-media{
@@ -788,27 +786,13 @@ section{padding:clamp(3.5rem,7vw,6rem) 0}
   color:var(--ink-soft);line-height:1.35;
 }
 
-/* Tablet: copy first, the two clips side by side underneath at native 9/16 */
-@media (max-width:900px){
-  .svc-flank{grid-template-columns:1fr 1fr}
-  /* Explicit rows are required, not optional. The copy sits second in the DOM
-     so that the reels read left-copy-right on desktop; with only grid-column
-     set, auto-placement pushed the copy onto its own row BETWEEN the two
-     clips and they stacked vertically instead of pairing up. */
-  .svc-flank .svc-copy{grid-column:1 / -1;grid-row:1;max-width:none}
-  .reel-col{width:100%;max-width:300px;margin-inline:auto;grid-row:2}
+/* Narrow: stack, clip back to its natural 9/16 */
+@media (max-width:760px){
+  .svc-flank{grid-template-columns:1fr;justify-items:center}
+  .svc-flank .svc-copy{max-width:none;justify-self:stretch}
+  .reel-col{width:min(80%,300px)}
   .reel-col .reel-media{flex:0 0 auto}
   .reel-col .reel-media video{aspect-ratio:9/16;height:auto}
-}
-@media (max-width:560px){
-  .svc-flank{grid-template-columns:1fr;justify-items:center}
-  /* grid-row must be reset here: the 900px block above still applies at this
-     width, and pinning both clips to row 2 in a single-column grid made the
-     second one spill into an implicit column (41px and 239px wide). */
-  /* order, not grid-row: puts the description first on a phone so the
-     visitor reads what the service is before hitting a clip. */
-  .svc-flank .svc-copy{grid-row:auto;order:-1}
-  .reel-col{width:min(80%,280px);max-width:280px;grid-row:auto}
 }
 
 /* --- 12. CTA ribbon ----------------------------------------------------
