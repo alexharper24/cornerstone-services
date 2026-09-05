@@ -198,7 +198,12 @@
     });
     tileImgs.forEach(function (im, i) {
       im.addEventListener('click', function () {
-        if (im.closest('.flip-face')) open([list[i]], 0);   // flip face: just that photo
+        // Before/after: open BOTH faces so the pair can still be flipped while
+        // expanded. The list is [After, Before] in DOM order, and starting at
+        // the clicked face means the nav arrows (and arrow keys) act as the
+        // flip. Previously this opened the single clicked photo, which left
+        // the lightbox with no way back to the other half of the pair.
+        if (im.closest('.flip-face')) open(list, i);
         else if (isAlbum) open(list, i);                     // album: browse the whole set
         else open([list[i]], 0);                             // single tile
       });
