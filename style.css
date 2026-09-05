@@ -737,38 +737,79 @@ section{padding:clamp(3.5rem,7vw,6rem) 0}
   gap:1.15rem;
 }
 .work-3up-more{margin-top:1.5rem}
-/* --- 11. Reel strip: phone-shot clip at its native proportions --------
-   The source is 9:16 portrait, so it is shown at phone size rather than
-   cropped: fitting it into a landscape frame would throw away ~72% of the
-   picture. Sits on mist so the navy work band above and the white CTA below
-   both get a tonal step. */
-.reel-strip{background:var(--mist);border-top:1px solid var(--line)}
-.reel-strip .wrap{
-  display:grid;grid-template-columns:auto 1fr;
-  gap:clamp(1.6rem,4vw,3.4rem);align-items:center;
+/* --- 11. Reels flanking a service description --------------------------
+   One clip either side of the copy, both stretched to the SAME height as the
+   copy column so the three columns line up top and bottom. That is why the
+   video drops its 9/16 aspect-ratio here and uses height:100% with
+   object-fit:cover instead: the row height is set by the copy, and the clip
+   crops at the sides to fill it. The action in both clips is centred, so a
+   side crop costs nothing.
+   .reel-col is a flex column with the media on flex:1, so the captions sit on
+   a common baseline no matter how tall the copy runs. */
+.svc-flank{
+  display:grid;
+  grid-template-columns:auto minmax(0,1fr) auto;
+  gap:clamp(1rem,2.2vw,2rem);
+  align-items:stretch;
 }
-.reel-media{
-  position:relative;width:300px;flex:0 0 auto;
+/* Centred in its column: the copy caps at 68ch for readability, so without
+   this the whole 147px of slack piled up on one side (32px gap left of the
+   copy against 180px right) and the row read lopsided. */
+.svc-flank .svc-copy{min-width:0;max-width:68ch;margin-inline:auto}
+.reel-col{
+  display:flex;flex-direction:column;
+  width:clamp(150px,15vw,230px);
+  margin:0;
+}
+.reel-col .reel-media{
+  flex:1 1 auto;min-height:0;width:100%;
+  position:relative;overflow:hidden;
   border:2px solid var(--ink);border-radius:var(--radius);
-  overflow:hidden;background:var(--ink);
-  box-shadow:0 22px 50px -30px rgba(10,32,61,.6);
+  background:var(--ink);
+  box-shadow:0 18px 44px -30px rgba(10,32,61,.55);
 }
-.reel-media video{
-  display:block;width:100%;height:auto;aspect-ratio:9/16;
+.reel-col .reel-media video{
+  display:block;width:100%;height:100%;
+  aspect-ratio:auto;               /* row height governs, not the clip */
   object-fit:cover;background:var(--ink);
 }
-/* Small red flag in the corner, same accent language as the work band */
-.reel-media::after{
+/* Small red flag, same accent language as the work band */
+.reel-col .reel-media::after{
   content:"On the job";
   position:absolute;top:0;left:0;z-index:2;
-  font-family:var(--head);font-weight:700;font-size:.68rem;
-  letter-spacing:.14em;text-transform:uppercase;
-  color:#fff;background:var(--red);padding:.32rem .66rem;
+  font-family:var(--head);font-weight:700;font-size:.62rem;
+  letter-spacing:.12em;text-transform:uppercase;
+  color:#fff;background:var(--red);padding:.28rem .55rem;
   border-radius:0 0 8px 0;
 }
-.reel-copy h2{margin-bottom:.8rem}
-.reel-copy p{color:var(--ink-soft);margin-bottom:1.4rem;max-width:46ch}
-.reel-copy .btn{margin-right:.6rem}
+.reel-col figcaption{
+  margin-top:.6rem;text-align:center;
+  font-family:var(--head);font-weight:600;font-size:.85rem;
+  color:var(--ink-soft);line-height:1.35;
+}
+
+/* Tablet: copy first, the two clips side by side underneath at native 9/16 */
+@media (max-width:900px){
+  .svc-flank{grid-template-columns:1fr 1fr}
+  /* Explicit rows are required, not optional. The copy sits second in the DOM
+     so that the reels read left-copy-right on desktop; with only grid-column
+     set, auto-placement pushed the copy onto its own row BETWEEN the two
+     clips and they stacked vertically instead of pairing up. */
+  .svc-flank .svc-copy{grid-column:1 / -1;grid-row:1;max-width:none}
+  .reel-col{width:100%;max-width:300px;margin-inline:auto;grid-row:2}
+  .reel-col .reel-media{flex:0 0 auto}
+  .reel-col .reel-media video{aspect-ratio:9/16;height:auto}
+}
+@media (max-width:560px){
+  .svc-flank{grid-template-columns:1fr;justify-items:center}
+  /* grid-row must be reset here: the 900px block above still applies at this
+     width, and pinning both clips to row 2 in a single-column grid made the
+     second one spill into an implicit column (41px and 239px wide). */
+  /* order, not grid-row: puts the description first on a phone so the
+     visitor reads what the service is before hitting a clip. */
+  .svc-flank .svc-copy{grid-row:auto;order:-1}
+  .reel-col{width:min(80%,280px);max-width:280px;grid-row:auto}
+}
 
 /* --- 12. CTA ribbon ----------------------------------------------------
    White by default so the red CTA carries the section and the navy footer
@@ -842,8 +883,6 @@ input:focus-visible,select:focus-visible,textarea:focus-visible{
 /* --- 14. Responsive ---------------------------------------------------- */
 @media (max-width:860px){
   .work-3up{grid-template-columns:1fr 1fr}
-  .reel-strip .wrap{grid-template-columns:1fr;justify-items:center;text-align:center}
-  .reel-copy p{margin-inline:auto}
   .owner-strip .wrap{grid-template-columns:76px 1fr;margin-top:-30px}
   .owner-strip img{width:76px;height:76px}
   .owner-strip .owner-actions{grid-column:1 / -1;width:100%}
@@ -861,8 +900,6 @@ input:focus-visible,select:focus-visible,textarea:focus-visible{
   .hero .hero-cta .btn{justify-content:center}
   .hero-trust{gap:.45rem 1.2rem}
   .work-3up{grid-template-columns:1fr;gap:1.1rem}
-  .reel-media{width:min(78%,260px)}
-  .reel-copy .btn{width:100%;justify-content:center;margin:0 0 .6rem}
   .stats .wrap{padding-bottom:2.6rem}
   .owner-strip .wrap{
     grid-template-columns:64px 1fr;gap:.9rem;padding:.85rem .95rem;margin-top:-24px;
@@ -872,24 +909,4 @@ input:focus-visible,select:focus-visible,textarea:focus-visible{
   /* Two side-by-side buttons plus a phone number is too tight at 390 */
   .owner-strip .owner-actions{flex-direction:column;gap:.5rem}
   .owner-strip .owner-actions .btn{width:100%}
-}
-
-
-/* --- 11b. Two reels side by side (service pages) -----------------------
-   Same phone proportions as the single strip, laid out as a pair with a
-   caption under each. Stacks to one column on phones. */
-.reel-2up{
-  display:grid;grid-template-columns:repeat(2,minmax(0,1fr));
-  gap:clamp(1.2rem,3vw,2.2rem);
-  max-width:720px;margin-inline:auto;
-}
-.reel-2up figure{margin:0}
-.reel-2up .reel-media{width:100%}
-.reel-2up figcaption{
-  margin-top:.7rem;text-align:center;
-  font-family:var(--head);font-weight:600;font-size:.95rem;color:var(--ink);
-}
-.reel-strip .sec-head{margin-bottom:2rem}
-@media (max-width:640px){
-  .reel-2up{grid-template-columns:1fr;max-width:300px}
 }
