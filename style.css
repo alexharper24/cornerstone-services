@@ -468,6 +468,7 @@ section{padding:clamp(3.5rem,7vw,6rem) 0}
   --red-tint:#F4E9EB;       /* pale wash for light surfaces       */
   --red-light:#D89BA4;      /* the accent, legible on navy        */
   --red-pale:#EBC6CB;       /* red-toned TEXT over the hero photo */
+  --red-cream:#F2DCDF;      /* warm off-white body copy on oxblood      */
   --tile-edge:rgba(169,192,214,.8); /* steel-blue card edge, not neutral grey */
   --navy-deep:#0A203D;      /* darker ground than --ink           */
 }
@@ -659,13 +660,18 @@ section{padding:clamp(3.5rem,7vw,6rem) 0}
 /* --- 10. Values band: flatter and ruled ------------------------------- */
 .sec-dark{background:var(--navy-deep)}
 .sec-dark::before,.sec-dark::after{display:none}
+/* Oxblood tiles on the navy band: 1.90:1 apart plus a full hue shift, which
+   is the same pairing the recent-work band uses, just inverted. Body copy is
+   a warm off-white rather than translucent white, because white over a
+   saturated red greys it out (the mistake the first veiled tiles made). */
 .sec-dark .why{
-  background:rgba(255,255,255,.05);
-  border:1px solid rgba(255,255,255,.14);
-  border-left:4px solid rgba(255,255,255,.22);
+  background:var(--red);
+  border:1px solid var(--red-light);
   border-radius:var(--radius);box-shadow:none;
 }
-.sec-dark .why .ic{background:rgba(216,155,164,.16);color:var(--red-light);border-radius:9px}
+.sec-dark .why h3{color:#fff}
+.sec-dark .why p{color:var(--red-cream)}
+.sec-dark .why .ic{background:rgba(255,255,255,.14);color:#fff;border-radius:9px}
 
 /* --- 10c. Recent-work 3-up ---------------------------------------------
    Captions sit ON the photo over a scrim, the same treatment .g-item
@@ -771,7 +777,12 @@ section{padding:clamp(3.5rem,7vw,6rem) 0}
 .svc-flank .svc-copy{min-width:0}
 .reel-col{
   display:flex;flex-direction:column;
-  width:clamp(170px,17vw,260px);
+  /* Sizing note: the frame height is pinned to the copy, so the width decides
+     how the clip crops. At the current copy height the zero-crop width is
+     height x 0.5625. Below that the sides crop, above it the top and bottom
+     do. 300px sits just past zero-crop, which is a visibly bigger clip for
+     about a 5% trim off each of the top and bottom. */
+  width:clamp(200px,21vw,300px);
   margin:0;
 }
 .reel-col .reel-media{
