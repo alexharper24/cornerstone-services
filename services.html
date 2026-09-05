@@ -21,7 +21,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Zilla+Slab:wght@400;500;600;700&family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css?v=20">
+<link rel="stylesheet" href="style.css?v=23">
 </head>
 <body>
 
@@ -108,13 +108,26 @@
 <!-- ===== WORK GALLERY ===== -->
 <section class="band">
   <div class="wrap">
-    <div class="sec-head reveal" style="margin-bottom:2rem">
-      <span class="kicker">Our Work</span>
-      <h2>See what we've done</h2>
-      <p>Take a look at examples of our painting, drywall, and remodel projects around Warsaw.</p>
-    </div>
-    <div style="text-align:center">
-      <a href="work.html" class="btn btn-primary reveal">Browse Our Work</a>
+    <div class="svc-flank reveal">
+      <div class="sec-head">
+        <span class="kicker">Our Work</span>
+        <h2>See what we've done</h2>
+        <p>Take a look at examples of our painting, drywall, and remodel projects around Warsaw.</p>
+      </div>
+      <div class="svc-copy">
+        <p>Before and after pairs you can flip, plus photos from real Cornerstone jobs around Warsaw: exterior repaints, a deck, a bathroom, entry doors and trim.</p>
+        <a href="work.html" class="btn btn-red">Browse Our Work</a>
+      </div>
+      <figure class="reel-col">
+        <div class="reel-media">
+          <video class="reel" poster="img/wall-reel-poster.jpg"
+                 muted loop playsinline preload="metadata" width="720" height="1280"
+                 aria-label="Rolling fresh paint onto a tall interior wall in a tight space">
+            <source src="video/wall-reel.mp4" type="video/mp4">
+          </video>
+        </div>
+        <figcaption>Painting a tall wall in a small space</figcaption>
+      </figure>
     </div>
   </div>
 </section>
@@ -185,6 +198,6 @@
   </div>
 </footer>
 
-<script src="main.js?v=12"></script>
+<script src="main.js?v=13"></script>
 </body>
 </html>

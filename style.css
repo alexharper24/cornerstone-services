@@ -748,53 +748,50 @@ section{padding:clamp(3.5rem,7vw,6rem) 0}
 }
 .work-3up-more{margin-top:1.5rem}
 /* --- 11. A reel beside a service description ---------------------------
-   One clip to the right of the copy, stretched to the SAME height as it so
-   the two columns line up top and bottom. That is why the video drops its
-   9/16 aspect-ratio here and uses height:100% with object-fit:cover: the row
-   height is set by the copy and the clip crops at the sides, which costs
-   nothing because the action is centre-framed.
-   .reel-col is a flex column with the media on flex:1, so the caption always
-   sits at the bottom however long the copy runs.
-   Copy comes FIRST in the DOM, so the single-column fallback needs no order
-   or grid-row juggling: it just stacks description then clip. */
+   The clip now keeps its natural 9/16 and the COPY centres against it, rather
+   than the copy setting the row height and the clip cropping to fit. That is
+   what lets the clip get big without losing any picture: at 340px wide it is
+   604px tall and nothing is cropped at all.
+   Three grid areas so the back link sits directly above the copy column
+   instead of at the container edge, while the clip spans both rows. */
 .svc-flank{
   display:grid;
-  /* The copy TRACK is capped at the reading measure and the pair is centred,
-     rather than the copy being capped inside a full-width track. Sizing the
-     track is what keeps the clip next to the text: with a 1fr track the copy
-     stopped at 68ch and ~480px of slack opened up between them, and simply
-     removing the cap pushed lines out to 99 characters. This gives ~68ch
-     lines AND a tight gap. */
-  /* 62ch, not 68: the ch unit is the width of "0", which in Work Sans is
-     wider than an average lowercase character, so a 68ch track measured 79
-     real characters per line. 62ch measures 60, inside the comfortable
-     45-75 range. Counted from rendered line boxes, not estimated. */
+  /* 62ch, not 68: ch is the width of "0", wider than an average character in
+     Work Sans, so a 68ch track measured 79 real characters per line. 62ch
+     measures 60, counted from rendered line boxes. */
   grid-template-columns:minmax(0,62ch) auto;
+  grid-template-rows:auto 1fr;
   justify-content:center;
-  gap:clamp(1.2rem,3vw,2.6rem);
-  align-items:stretch;
+  gap:0 clamp(1.4rem,3vw,3rem);
+  align-items:center;
 }
-.svc-flank .svc-copy{min-width:0}
+/* Row 1 of the copy column: whatever leads the section (a back link, or a
+   section heading) sits directly above the copy rather than at the
+   container edge, which the centred grid would otherwise pull it away from. */
+.svc-flank .back-link,
+.svc-flank .sec-head{grid-column:1;grid-row:1;align-self:end;margin:0 0 1.2rem;
+  text-align:left;max-width:none}
+.svc-flank .svc-copy{grid-column:1;grid-row:2;min-width:0;align-self:center}
+/* Row 2 only, not spanning both: spanning made the clip centre on the whole
+   grid while the copy centred on row 2, leaving them 21px out. Sharing one
+   row means both centre on the same box. */
+.svc-flank .reel-col{grid-column:2;grid-row:2;align-self:center}
+
 .reel-col{
   display:flex;flex-direction:column;
-  /* Sizing note: the frame height is pinned to the copy, so the width decides
-     how the clip crops. At the current copy height the zero-crop width is
-     height x 0.5625. Below that the sides crop, above it the top and bottom
-     do. 300px sits just past zero-crop, which is a visibly bigger clip for
-     about a 5% trim off each of the top and bottom. */
-  width:clamp(200px,21vw,300px);
+  width:clamp(220px,24vw,340px);
   margin:0;
 }
 .reel-col .reel-media{
-  flex:1 1 auto;min-height:0;width:100%;
+  flex:0 0 auto;width:100%;
   position:relative;overflow:hidden;
   border:2px solid var(--ink);border-radius:var(--radius);
   background:var(--ink);
   box-shadow:0 18px 44px -30px rgba(10,32,61,.55);
 }
 .reel-col .reel-media video{
-  display:block;width:100%;height:100%;
-  aspect-ratio:auto;               /* row height governs, not the clip */
+  display:block;width:100%;height:auto;
+  aspect-ratio:9/16;                /* native, so nothing is cropped */
   object-fit:cover;background:var(--ink);
 }
 /* Small red flag, same accent language as the work band */
@@ -812,13 +809,41 @@ section{padding:clamp(3.5rem,7vw,6rem) 0}
   color:var(--ink-soft);line-height:1.35;
 }
 
-/* Narrow: stack, clip back to its natural 9/16 */
-@media (max-width:760px){
-  .svc-flank{grid-template-columns:1fr;justify-items:center}
-  .svc-flank .svc-copy{max-width:none;justify-self:stretch}
+/* Narrow: one column, everything back in source order */
+@media (max-width:820px){
+  .svc-flank{grid-template-columns:1fr;grid-template-rows:auto;justify-items:center;gap:1.4rem 0}
+  .svc-flank .back-link,
+  .svc-flank .sec-head,
+  .svc-flank .svc-copy,
+  .svc-flank .reel-col{grid-column:1;grid-row:auto}
+  .svc-flank .back-link,
+  .svc-flank .sec-head{justify-self:start;margin-bottom:0}
+  .svc-flank .svc-copy{justify-self:stretch}
   .reel-col{width:min(80%,300px)}
-  .reel-col .reel-media{flex:0 0 auto}
-  .reel-col .reel-media video{aspect-ratio:9/16;height:auto}
+}
+
+/* --- 11b. Lightbox flip control ----------------------------------------
+   Before/after pairs get a labelled button instead of the generic arrows,
+   because "See before" states what will happen and a chevron does not. The
+   arrows stay for multi-photo albums, where stepping is the right idea. */
+.lightbox-flip{
+  position:absolute;left:50%;bottom:clamp(3.6rem,7vh,5rem);
+  transform:translateX(-50%);z-index:4;
+  display:none;align-items:center;gap:.5rem;
+  padding:.7rem 1.3rem;border:0;border-radius:10px;cursor:pointer;
+  font-family:var(--head);font-weight:700;font-size:.95rem;letter-spacing:.02em;
+  color:#fff;background:var(--red);
+  box-shadow:0 12px 30px -12px rgba(0,0,0,.7);
+  transition:background .2s var(--ease),transform .2s var(--ease);
+}
+.lightbox.is-pair .lightbox-flip{display:inline-flex}
+.lightbox.is-pair .lightbox-nav{display:none}
+.lightbox-flip svg{width:17px;height:17px}
+@media (hover:hover){
+  .lightbox-flip:hover{background:var(--red-dark);transform:translateX(-50%) translateY(-2px)}
+}
+@media (hover:none){
+  .lightbox-flip:hover{background:var(--red);transform:translateX(-50%)}
 }
 
 /* --- 12. CTA ribbon ----------------------------------------------------

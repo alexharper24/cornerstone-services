@@ -150,7 +150,7 @@
 (function () {
   const tiles = [].slice.call(document.querySelectorAll('.gallery .g-item'));
   if (!tiles.length) return;
-  let box, imgEl, capEl, countEl, items = [], idx = 0;
+  let box, imgEl, capEl, countEl, flipEl, items = [], idx = 0, isPair = false;
 
   function build() {
     box = document.createElement('div');
@@ -159,11 +159,18 @@
       '<button class="lightbox-close" aria-label="Close">✕</button>' +
       '<button class="lightbox-nav prev" aria-label="Previous photo">‹</button>' +
       '<button class="lightbox-nav next" aria-label="Next photo">›</button>' +
+      '<button class="lightbox-flip" type="button">' +
+        '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" ' +
+        'stroke-linecap="round" stroke-linejoin="round">' +
+        '<path d="M17 1l4 4-4 4M21 5H3M7 23l-4-4 4-4M3 19h18"/></svg>' +
+        '<span></span></button>' +
       '<img alt=""><div class="cap"></div><div class="lightbox-count"></div>';
     document.body.appendChild(box);
     imgEl = box.querySelector('img');
     capEl = box.querySelector('.cap');
     countEl = box.querySelector('.lightbox-count');
+    flipEl = box.querySelector('.lightbox-flip');
+    flipEl.addEventListener('click', function (e) { e.stopPropagation(); step(1); });
     box.addEventListener('click', function (e) {
       if (e.target === box || e.target.classList.contains('lightbox-close')) close();
     });
@@ -176,11 +183,20 @@
     capEl.textContent = it.cap || '';
     countEl.textContent = items.length > 1 ? (idx + 1) + ' / ' + items.length : '';
     box.classList.toggle('single', items.length < 2);
+    box.classList.toggle('is-pair', isPair);
+    if (isPair) {
+      // Name the destination, not the direction: looking at the After, the
+      // button offers the Before. Chevrons could not say which was which.
+      const other = items[(idx + 1) % items.length];
+      const label = 'Click to see ' + String(other.cap || '').toLowerCase();
+      flipEl.querySelector('span').textContent = label;
+      flipEl.setAttribute('aria-label', label);
+    }
   }
   function step(d) { idx = (idx + d + items.length) % items.length; render(); }
-  function open(list, start) {
+  function open(list, start, pair) {
     if (!box) build();
-    items = list; idx = start || 0; render();
+    items = list; idx = start || 0; isPair = !!pair; render();
     box.classList.add('open'); document.body.style.overflow = 'hidden';
   }
   function close() { if (box) { box.classList.remove('open'); document.body.style.overflow = ''; } }
@@ -203,7 +219,7 @@
         // the clicked face means the nav arrows (and arrow keys) act as the
         // flip. Previously this opened the single clicked photo, which left
         // the lightbox with no way back to the other half of the pair.
-        if (im.closest('.flip-face')) open(list, i);
+        if (im.closest('.flip-face')) open(list, i, true);   // before/after pair
         else if (isAlbum) open(list, i);                     // album: browse the whole set
         else open([list[i]], 0);                             // single tile
       });
