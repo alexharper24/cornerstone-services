@@ -968,6 +968,260 @@ input:focus-visible,select:focus-visible,textarea:focus-visible{
 .page-hero .kicker{color:var(--red-light)}
 .field input,.field select,.field textarea{font-size:1rem}
 
+/* =======================================================================
+   22. EDITORIAL PASS
+   The site had settled into one repeated shape: a rounded white rectangle
+   with a border, a shadow, an icon in a tinted rounded square, and a
+   heading. Services, values, steps and the owner strip were all that same
+   object with different contents, which is the thing that reads as a
+   template rather than as somebody's business.
+
+   This section takes the boxes off and lets photography, type, thin rules
+   and space do the same work. Nothing here changes markup structure,
+   content, or the grid; it changes what the containers look like.
+
+   Deliberately left contained, because the box is doing a job there:
+   the estimate form, the lightbox, the gallery items, and the flip and
+   filter controls on the work page.
+   ======================================================================= */
+
+/* --- 22a. Hero trust row retired ---------------------------------------
+   Three claims in the hero, then four more in the strip 100px below it.
+   The markup is gone from index.html; this is a guard so a stray copy
+   pasted into another page cannot bring the duplicate layer back. */
+.hero-trust{display:none}
+
+/* --- 22b. Trust strip: an actual grid ----------------------------------
+   It was flex-wrap with a 2.6rem gap, so the four items packed by measured
+   text width: three on the first row and the fourth alone and centred
+   underneath. A grid makes the columns equal and the wrap predictable.
+   Note there was already a grid-template-columns rule for this selector in
+   the 680px block that had never applied to anything, because the
+   container was not a grid. It applies now. */
+.stats .wrap{
+  display:grid;
+  /* Equal columns across a 1320px container spread the four items so far
+     apart they stopped reading as one row. Content-width columns with a fixed
+     gap, centred as a group, keeps them together and makes the gaps between
+     them genuinely equal rather than only the column centres.
+     This only fits while the four labels are narrower than the container, so
+     it is switched on at 1024px and up. Below that the equal-column version
+     takes over, since 1fr columns let the longer labels wrap instead of
+     pushing the row off the side of the page. */
+  grid-template-columns:repeat(4,1fr);
+  justify-content:initial;
+  justify-items:center;
+  align-items:start;
+  gap:1rem 1.7rem;
+  /* The bottom padding is clearance, not taste. The owner band below is
+     pulled up 38px to overlap this navy strip on purpose, and that overlap
+     was tuned when the strip was a single flex row. Grid columns wrap the
+     longer labels onto a second line, which grew the strip and put the band
+     over the last 15px of the text. The padding puts the overlap back onto
+     empty navy. If the strip's height changes again, re-measure this. */
+  padding:1.35rem 0 3.6rem;
+}
+.stat{align-items:flex-start;gap:.55rem;line-height:1.35}
+.stat .ic{margin-top:.15rem}
+@media (min-width:1024px){
+  .stats .wrap{
+    grid-template-columns:repeat(4,auto);
+    justify-content:center;
+    gap:1rem clamp(1.9rem,3.4vw,3.25rem);
+  }
+}
+/* Below 1024 the four labels no longer fit on one line across the container.
+   Measured at 900px: they wrapped to two lines each and the gaps came out 27,
+   50 and 61, which is the uneven row this section exists to avoid. Two columns
+   from here down instead.
+   Auto columns again, not 1fr. With 1fr the pair sat at either end of the
+   container, 272px apart at 1023px and 334px on the second row, which is the
+   same sparse look in 2-up form. Auto tracks size to the widest label in each
+   column, so both rows share the same two columns and the block stays tight
+   and centred. */
+@media (min-width:521px) and (max-width:1023.98px){
+  .stats .wrap{
+    grid-template-columns:repeat(2,auto);
+    justify-content:center;
+    gap:1.1rem clamp(1.9rem,4vw,3.25rem);
+  }
+}
+/* In any 2-up layout the items start at the track edge instead of centring in
+   it. The tracks are sized by the wider label in each column, so centring left
+   the narrower second row shifted right of the first (279/258 against
+   238/238 at 1023px). Starting them aligns the two rows on a common left edge
+   and puts the four icons in two clean vertical columns, while
+   justify-content still centres the block as a whole. */
+@media (max-width:1023.98px){
+  .stats .wrap{justify-items:start}
+}
+/* Real phones keep 1fr, because auto tracks would let the two longest labels
+   push the row wider than a 353px container and there is nowhere for it to go.
+   Below this width the labels are meant to wrap. */
+@media (max-width:520px){
+  .stats .wrap{grid-template-columns:1fr 1fr;gap:1.15rem 1.2rem}
+}
+
+/* --- 22c. Header CTA in oxblood ----------------------------------------
+   The one red element in the header, so "Free Estimate" stops competing
+   with the nav links for the same navy. */
+.nav-cta{background:var(--red);box-shadow:none}
+.nav-cta:focus-visible{background:var(--red-dark)}
+
+/* --- 22d. Owner strip: deliberately NOT flattened ----------------------
+   The editorial pass squared and unboxed the rest of the page. This one
+   keeps its original treatment at Alex's request: mist ground, 2px oxblood
+   frame all the way round, rounded corners, rounded headshot, and the soft
+   drop shadow. It is the one card on the site that should still read as a
+   card, because it overlaps up into the navy trust strip and the frame is
+   what makes that overlap look deliberate.
+   Nothing is overridden here on purpose. Section 7's rules stand. */
+
+/* --- 22e. Services: the photo and the number carry it ------------------
+   Same three photos, same links, same copy, same 3-up grid. What goes is
+   the card chrome: the border, the radius, the hover lift, and the white
+   circular icon badge that floated over the bottom edge of every photo.
+   The 01/02/03 label comes off the photo corner and becomes an editorial
+   label under it, with a hairline running out to the column edge. */
+.svc-card{
+  background:transparent;
+  border:0;border-radius:0;box-shadow:none;
+  padding:0;overflow:visible;
+  /* Flex column purely to reorder: the 01 label precedes the photo in the
+     markup because it used to be positioned absolutely over the photo's top
+     corner. Now that it sits in the flow it belongs under the photo, and
+     `order` gets that without touching the HTML on two pages. */
+  display:flex;flex-direction:column;
+}
+.svc-card .svc-photo{margin:0;border-radius:0;order:-1}
+.svc-card::after{display:none}     /* the hover top-bar has no card to sit on */
+.svc-card .ic{display:none}        /* the floating badge: the template tell */
+.svc-no{
+  position:static;
+  display:flex;align-items:center;gap:.65rem;
+  background:none;color:var(--red);
+  padding:0;border-radius:0;
+  margin:1.05rem 0 .5rem;
+  font-size:.75rem;letter-spacing:.18em;
+}
+.svc-no::after{content:"";flex:1;height:1px;background:var(--line)}
+.svc-card h3{margin-bottom:.5rem}
+.svc-card ul{margin-top:.9rem}
+
+/* --- 22f. Values as field notes ----------------------------------------
+   Four solid oxblood tiles on the navy band were the loudest thing on the
+   site and made the section read as four buttons. Open columns on the same
+   navy, divided by hairlines, with a short red-light rule above each.
+   --red-light rather than --red for that rule: oxblood on navy-deep is
+   1.9:1, which is fine behind text but nearly invisible as a 2px line. */
+.sec-dark .why{
+  background:none;
+  border:0;border-radius:0;box-shadow:none;
+  padding:0 0 0 1.6rem;
+  border-left:1px solid rgba(169,192,214,.26);
+}
+.sec-dark .why:first-child{border-left:0;padding-left:0}
+.sec-dark .why::before{
+  content:"";display:block;
+  width:34px;height:2px;background:var(--red-light);
+  margin-bottom:1rem;
+}
+.sec-dark .why .ic{
+  width:auto;height:auto;
+  background:none;border-radius:0;box-shadow:none;
+  display:block;color:var(--red-light);
+  margin-bottom:.75rem;
+}
+.sec-dark .why .ic svg{width:27px;height:27px}
+.sec-dark .why h3{color:#fff;margin-bottom:.45rem}
+.sec-dark .why p{color:#C8D8E8}   /* was --red-cream, which was for the red tiles */
+
+/* --- 22g. Process as a row, not four units -----------------------------
+   The circles stay: on a four-step process they are a genuine position
+   marker, not decoration. What goes is the drop shadow under each one, the
+   green second step, and the centred text, which left four floating
+   columns with nothing tying them together. Left-aligned against a
+   hairline reads as one row that runs left to right. */
+.steps{gap:1.4rem 0}
+.step{text-align:left;padding:0 1.5rem;border-left:1px solid var(--line)}
+.step:first-child{border-left:0;padding-left:0}
+.step .n{
+  width:44px;height:44px;font-size:1.1rem;
+  margin:0 0 .8rem;box-shadow:none;
+  background:var(--ink);
+}
+.step:nth-child(1) .n{background:var(--red)}
+.step:nth-child(2) .n{background:var(--ink);box-shadow:none}
+.step:nth-child(3) .n{background:var(--ink)}
+.step:nth-child(4) .n{background:var(--ink)}
+
+/* --- 22h. Work page: touch-sized flip control --------------------------
+   It was 27px tall, well under the 44px touch target minimum, and it is
+   the control the whole before/after feature depends on. */
+@media (hover:none),(max-width:680px){
+  .flip-toggle{
+    min-height:44px;padding:.6rem 1rem;font-size:.78rem;
+    bottom:.6rem;right:.6rem;
+  }
+  .flip-toggle svg{width:16px;height:16px}
+}
+
+/* --- 22i. Responsive for the sections above ----------------------------
+   Dividers have to follow the column count. In a 2-up grid the third item
+   starts a new row, so resetting only :first-child leaves it with a left
+   rule hanging off the row start. Each breakpoint resets the item that is
+   actually first in its row. */
+@media (max-width:960px){
+  .sec-dark .why:nth-child(odd){border-left:0;padding-left:0}
+  .step:nth-child(odd){border-left:0;padding-left:0}
+}
+@media (max-width:680px){
+  /* Values stack, so the dividers turn horizontal. */
+  .sec-dark .why{
+    border-left:0;padding-left:0;
+    border-top:1px solid rgba(169,192,214,.26);
+    padding-top:1.5rem;
+  }
+  .sec-dark .why:first-child{border-top:0;padding-top:0}
+  .sec-dark .why::before{margin-bottom:.85rem}
+
+  /* Process goes 2x2 rather than one long scroll of four. */
+  .steps{grid-template-columns:1fr 1fr;gap:1.6rem 1.2rem}
+  .step{padding:0 0 0 1.1rem}
+  .step:nth-child(odd){border-left:0;padding-left:0}
+  .step .n{width:40px;height:40px;font-size:1rem;margin-bottom:.6rem}
+  .step h3{font-size:.98rem}
+  .step p{font-size:.85rem}
+
+  /* Clearance only. The column count is handled by the two blocks above, and
+     setting 1fr here as well pinned the pair to the left edge between 600 and
+     680px while leaving 97px empty on the right. The band below overlaps by
+     24px at this size rather than 38px, so it needs less room, but two rows of
+     labels are taller than one. */
+  .stats .wrap{padding-bottom:2.9rem}
+}
+
+/* --- 22j. Two contrast failures found in review ------------------------
+   Both pre-date this pass; the audit that caught them walks composited
+   colors rather than declared ones.
+     .footer-verse  --green #6E8CA8 on footer navy = 3.92:1 at 14.4px.
+                    #8FA9C4 is the same blue-grey a shade up: 5.67:1, and
+                    a scripture reference should stay quiet, so the smallest
+                    lift that passes is the right one rather than white.
+     .form-note     --ink-faint #8492A1 on white = 3.18:1 at 12.8px. This is
+                    the line that promises not to share someone's details,
+                    directly under the form, so it needs to be readable.
+                    --ink-soft is 5.96:1. */
+.footer-verse{color:#8FA9C4}
+.form-note{color:var(--ink-soft)}
+
+/* Hover states for the editorial surfaces. Kept out of the blocks above so
+   the touch-neutralising rules later in the file still win. */
+@media (hover:hover){
+  .nav-cta:hover{background:var(--red-dark) !important}
+  .svc-card:hover{transform:none;box-shadow:none;border-color:transparent}
+}
+
 /* --- 20. Light-mode lock: the forced-dark override ----------------------
    The two <meta> tags and `color-scheme: light only` in :root are only two
    thirds of the lock. iOS Safari's auto-dark (and Chrome's forced-dark on
@@ -984,8 +1238,7 @@ input:focus-visible,select:focus-visible,textarea:focus-visible{
 
   /* Light surfaces, held light */
   .nav,.nav-links,
-  .svc-card,.svc-card.has-photo .ic,
-  .why,.form-card,.contact-row,.panel,
+  .form-card,.contact-row,.panel,
   .gallery-filters button,
   .cta-ribbon,
   .btn-white,.cta-ribbon .btn-white{
@@ -1013,9 +1266,17 @@ input:focus-visible,select:focus-visible,textarea:focus-visible{
     background-color:var(--ink) !important;
   }
   .hero,.sec-dark,.stats,.work-3up-band{background-color:var(--navy-deep) !important}
-  .nav-cta,.btn-primary{background-color:var(--blue) !important}
-  .btn-red,.sec-dark .why,.svc-no,.lightbox-flip,
+  .btn-primary{background-color:var(--blue) !important}
+  .btn-red,.nav-cta,.lightbox-flip,.step:nth-child(1) .n,
   .reel-col .reel-media::after{background-color:var(--red) !important}
+  .step .n{background-color:var(--ink) !important}
+  .step:nth-child(1) .n{background-color:var(--red) !important}
+
+  /* The editorial pass took the fill off these two: they are now type and
+     rules on the section's own ground, so forcing a background back on
+     would re-box exactly what section 22 opened up. */
+  .svc-card,.svc-card .ic,.sec-dark .why{background:none !important}
+  .svc-no{background:none !important;color:var(--red) !important}
   .cta-ribbon.is-blue,body.cta-blue .cta-ribbon{
     background:linear-gradient(120deg,var(--blue),var(--blue-deep)) !important;
   }
@@ -1023,11 +1284,14 @@ input:focus-visible,select:focus-visible,textarea:focus-visible{
   /* Text sitting on those dark surfaces */
   .hero,.hero h1,.hero p,.page-hero,.page-hero h1,.page-hero p,
   .sec-dark,.sec-dark h2,.sec-dark h3,.sec-dark p,
-  .footer,.footer a,.footer p,.good-to-know,.good-to-know li,
+  .footer,.footer a,.footer p:not(.footer-verse),.good-to-know,.good-to-know li,
   .stats,.stats *,.work-card,.work-label,
-  .nav-cta,.btn-primary,.btn-red,.sec-dark .why,.svc-no,.lightbox-flip{
+  .nav-cta,.btn-primary,.btn-red,.lightbox-flip,.step .n{
     color:#fff !important;
   }
+  .sec-dark .why h3{color:#fff !important}
+  .sec-dark .why p{color:#C8D8E8 !important}
+  .sec-dark .why .ic{color:var(--red-light) !important}
   .page-hero .kicker{color:var(--red-light) !important}
 }
 

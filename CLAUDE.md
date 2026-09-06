@@ -19,7 +19,7 @@ page's flanking layout collapsed into a stack for anyone with a warm cache.
 It looked like a CSS bug and was not. If only HTML changed, do **not** bump,
 because that forces every returning visitor to re-download 50 KB for nothing.
 
-Current: `style.css?v=27`, `main.js?v=13`.
+Current: `style.css?v=37`, `main.js?v=13`.
 
 ## The light-mode lock needs all three parts
 
