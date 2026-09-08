@@ -1,3 +1,12 @@
 {
-  "ignore_files": ["preview.html"]
+  "//": "The repo root doubles as the folder where design studies and archived previews live. They are gitignored so CI never sees them, but check_site.py scans the working directory, so the documented local run needs them listed here too or it reports errors for files that will never ship.",
+  "ignore_files": [
+    "preview.html",
+    "preview-archived.html",
+    "design-preview-archived.html",
+    "homepage-preview-archived.html",
+    "hero-options.html",
+    "hero-options-no-photo.html",
+    "Cornerstone-Services-OnePage.html"
+  ]
 }

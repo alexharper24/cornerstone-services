@@ -1,17 +1,44 @@
-# Source-only / large originals — not part of the published site
+# This folder is now both the git root and the place raw source material
+# lands, so the ignore rules carry more weight than they used to. Everything
+# below is local-only and unbacked, which is the accepted trade for keeping
+# 27 MB of originals out of a repo that GitHub Pages serves in full.
+#
+# Two specific risks make these rules load-bearing:
+#   - every .html at the root would be PUBLISHED by Pages if committed
+#   - site-checks scans the repo root, and the archived previews fail it
+#     (no light-mode lock, em dashes in copy, 56 errors when last run)
+# Before any `git add -A`, run `git add -An .` and read what is pending.
+
+# Raw camera drops arrive with a space in the filename, 5-6 MB each. Only the
+# resized work-*.jpg derivatives belong in the repo. Matches at any depth, so
+# it covers both this folder and img/.
+* *.jpg
+* *.jpeg
+* *.png
+
+# Design studies and superseded previews. Never delete these, just keep them
+# out of the repo and out of Pages.
+hero-options.html
+hero-options-no-photo.html
+*-archived.html
+Cornerstone-Services-OnePage.html
+preview.html
+concepts/
+
+# The full-size original of the CTA wood texture, and the reel downloads that
+# video/*.mp4 was re-encoded from.
+rich-wood-grain-stockcake-original.jpg
+reels-source/
+
+# Packaged hand-offs
+*.zip
+
+# Scratch and working images
 stephen-*.png
 *_n.jpg
-preview.html
 _rev*.png
 _review*.png
 .DS_Store
 
-# Raw camera drops arrive in img/ with a space in the name ("deck before.jpg"),
-# 5-6 MB each. Only the resized work-*.jpg derivatives belong in the repo.
-img/* *.jpg
-img/* *.jpeg
-img/* *.png
-
-# Design concept studies, kept for reference only. Not part of the published
-# site: no light-mode lock, em dashes in copy, so they would fail site-checks.
-concepts/
+# Local editor/session config. No other site repo tracks this.
+.claude/
