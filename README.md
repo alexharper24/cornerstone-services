@@ -5,21 +5,30 @@ A fast, mobile-friendly static website for **Cornerstone Services** (Stephen Wil
 ## What's here
 
 ```
-web/
-├── index.html        Home
-├── services.html     Services + work gallery
-├── about.html        About Stephen / our story
-├── contact.html      Free estimate form + contact info
-├── style.css         All styling (change colors/fonts in one place at the top)
-├── main.js           Menu, animations, gallery filter, form handling
-├── sitemap.xml       For Google
-├── robots.txt        For Google
-├── .nojekyll         Tells GitHub Pages to serve files as-is
-└── img/              Logos + favicon (add work photos here)
-    └── brand/source/ Your original logo package, kept for safekeeping
+index.html              Home
+services.html           All three services in one place
+service-painting.html   Interior & exterior painting
+service-drywall.html    Drywall finish & repair
+service-remodel.html    Small remodels & fixes
+work.html               Photo gallery, including before/after pairs
+about.html              About Stephen
+contact.html            Free estimate form + contact info
+privacy-policy.html     What the site does and doesn't collect
+404.html                Shown if someone hits a bad link
+style.css               All styling (change colors/fonts at the top)
+main.js                 Menu, animations, gallery, before/after flips
+sitemap.xml             For Google
+robots.txt              For Google
+favicon.ico             Browser tab icon
+.nojekyll               Tells GitHub Pages to serve files as-is
+fonts/                  The two typefaces, self-hosted
+img/                    Photos, logos, favicons
+  brand/source/         Your original logo package, kept for safekeeping
+video/                  The two job clips used on the service pages
 ```
 
-This folder **is** the website. Upload its **contents** (so `index.html` sits at the top level) to your host.
+This folder **is** the website. Everything above sits at the top level, which
+is what GitHub Pages serves.
 
 ### About `img/brand/source/`
 
@@ -64,7 +73,7 @@ spot as the "after" and keep both the same orientation.
 ## Publishing it free on GitHub Pages
 
 1. Create a free account at [github.com](https://github.com) and a new **public** repository.
-2. Upload **everything inside this `web/` folder** (Add file → Upload files) — all the HTML, `style.css`, `main.js`, and the whole `img/` folder. *(Forgetting the images is the #1 cause of broken pictures on the live site.)*
+2. Upload **everything in this folder** (Add file → Upload files) — all the HTML, `style.css`, `main.js`, and the whole `img/` folder. *(Forgetting the images is the #1 cause of broken pictures on the live site.)*
 3. Go to **Settings → Pages → Deploy from a branch → `main` → `/ (root)` → Save**.
 4. In ~1–2 minutes your site is live at `https://<your-username>.github.io/<repo>/`.
 
