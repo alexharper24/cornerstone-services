@@ -1315,3 +1315,13 @@ input:focus-visible,select:focus-visible,textarea:focus-visible{
   a[href^="http"]::after,a[href^="mailto:"]::after{content:" (" attr(href) ")";font-size:9pt;word-break:break-all}
   .footer{border-top:1px solid #999;padding-top:.6rem}
 }
+
+/* ---------- skip link ----------
+   Off-screen until focused, then a real button top-left. Required with the
+   <main id="main"> landmark: without both, a keyboard or screen-reader user
+   has no way to bypass the header nav on any page (WCAG 2.1 SC 2.4.1,
+   Level A). Pattern copied from alexharper-website-repo. */
+.skip-link{position:absolute;left:-9999px;top:0;z-index:100;
+  background:var(--ink,#22201d);color:#fff;font-weight:600;
+  font-size:15px;padding:12px 20px;border-radius:0 0 10px 0;text-decoration:none}
+.skip-link:focus{left:0}
